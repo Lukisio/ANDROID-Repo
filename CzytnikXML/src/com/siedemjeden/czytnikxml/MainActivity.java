@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+// wprowadzono zmiany
 	 
 	//	final String MY_DEBUG_TAG = "Parser XML";
 		ekran = (TextView)findViewById(R.id.textView1);
