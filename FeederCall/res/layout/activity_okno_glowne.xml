@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:context=".OknoGlowne" >
 
     <TextView
@@ -11,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="26dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Numer detalu:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -22,7 +22,6 @@
         android:layout_marginLeft="8dp"
         android:layout_alignBottom="@+id/textView2"
         android:layout_toRightOf="@+id/textView2"
-        android:hint=" numer"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <Button
@@ -52,7 +51,7 @@
         android:layout_height="1dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="6dp"
         android:gravity="center_horizontal"
         android:paddingTop="5dip" />
     
@@ -63,7 +62,7 @@
         android:layout_height="1dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textViewZbrojenieGorne"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="6dp"
         android:gravity="center_horizontal"
         android:paddingTop="5dip" />
 
@@ -73,8 +72,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
         android:layout_below="@+id/line1"
-        android:layout_marginTop="15dp"
-        android:text="Zbrojenie górne:"
+        android:layout_marginTop="8dp"
+        android:text="Info:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -83,8 +82,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textViewZbrojenieGorne"
         android:layout_below="@+id/line2"
-        android:layout_marginTop="15dp"
-        android:text="Zbrojenie dolne:"
+        android:layout_marginTop="8dp"
+        android:text="Uwagi:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -111,9 +110,40 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/button1"
-        android:layout_alignLeft="@+id/textViewZbrojenieDolne"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
         android:text="Copyright Łukasz Pająk      Only for internal usage"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewZbrojenieDolne"
+        android:layout_alignBaseline="@+id/button1"
+        android:text="BendMaster"
+        />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button2"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_toRightOf="@+id/button2"
+        android:layout_marginLeft="20dp"
+        android:text="TB 5130" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button3"
+        android:layout_alignBottom="@+id/button3"
+        android:layout_toRightOf="@+id/button3"
+        android:layout_marginLeft="20dp"
+        android:text="TB 7036" />
+	
 </RelativeLayout>
