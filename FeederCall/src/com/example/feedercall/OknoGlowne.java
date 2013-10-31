@@ -90,8 +90,8 @@ public class OknoGlowne extends Activity {
 	  skanowanie.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {		
-		//		skanowanie();
-				wyszukaj("5907813508097");
+				skanowanie();
+		//		wyszukaj("5907813508097");
         /*		ekranNumer.setText(numer);
         		ekranProducent.setText(lp);
     			ekranGora.setText(info);
@@ -134,7 +134,9 @@ public class OknoGlowne extends Activity {
 			adb.setTitle(""+maszyna); 
 			adb.setButton("Edytuj", new DialogInterface.OnClickListener() {
 			        public void onClick(DialogInterface dialog, int which) {
-			        	detal.zapisz();
+			        	Intent myIntent = new Intent(OknoGlowne.this, EdytorZbrojenia.class);
+			        	OknoGlowne.this.startActivity(myIntent);
+			        	//detal.zapisz();
 		                return;
 			    } });
 

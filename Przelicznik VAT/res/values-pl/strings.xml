@@ -1,0 +1,32 @@
+<resources>
+    <string name="przelKwota">Kwota Netto</string>
+    <string name="app_name">Kalkulator VAT</string>
+    <string name="menu_settings">Ustawienia</string>
+    <string name="title_activity_main">Kalkulator VAT</string>
+    <string name="kwotaBrutto">Przelicz Netto na Brutto</string>
+    <string name="stawkaPodatku">Stawka: 23%</string>
+    <string name="stawka">Stawka:</string>
+    <string name="licz">Porównaj</string>
+    <string name="kwota">Podaj kwote</string>
+    <string name="kwotaVat">Podatek VAT:</string>
+    <string name="kwotaBrutto2">Kwota Brutto</string>
+    <string name="kwotaNetto2">Przelicz Brutto na Netto</string>
+    <string name="about">O programie</string>
+    <string name="quit">Zakończ program</string>
+    <string name="exit">Licz dalej</string>
+    <string name="aboutText">Program do przeliczania kwot Netto na Brutto i odwrotnie. Uwzględnia wszystkie stawki VAT obowiązujące w Polsce, zarówno obecnie jak i przed 2011r.</string>
+    <string name="uwagi">Szczęśliwie, jest to moja pierwsza aplikacja na Google Play. Uwagi odnośnie działania aplikacji proszę wysyłać pod adres: lukisio@siedemjeden.net</string>
+    <string name="prosba">Wspieraj darmowe oprogramowanie!\nKliknij w reklamę i daj zarobić.</string>
+    <string name="wybor">Zmiana Stawki</string>
+    <string name="wybrana">Wybrana stawka</string>
+    <string name="zmiana">Zmień</string>
+    <string name="oknoWybor">Twój wybór</string>
+    <string name="oknoKraj">Kraj</string>
+    <string name="oknoStawkaPodst">Stawka podstawowa</string> 
+    <string name="oknoStawkaUlg">Stawka ulgowa</string>
+    <string name="zbytWysoka">Kwota zbyt wysoka</string>
+    <string name="szklankaMleka">Czy wiesz, że...&lt;br> ...jeśli klikniesz na reklamę, zarobię na pół szklanki mleka?&lt;br>&lt;br>Kliknij w reklamę - będziesz Wielki!</string>
+    <string name="bannerClick">Kliknij w baner!</string>
+    <string name="spacja">" "</string>
+    <string name="klikne">"OK, kliknę!"</string>
+</resources>

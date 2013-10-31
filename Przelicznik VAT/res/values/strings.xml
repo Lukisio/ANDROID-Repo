@@ -1,0 +1,31 @@
+<resources>
+    <string name="przelKwota">Net amount</string>
+    <string name="app_name">VAT Calculator</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">VAT Calculator</string>
+    <string name="kwotaBrutto">Count Gross from Net</string>
+    <string name="stawkaPodatku">VAT rate: 23%</string>
+    <string name="stawka">VAT rate:</string>
+    <string name="licz">Compare</string>
+    <string name="kwota">Enter amount</string>
+    <string name="kwotaVat">VAT Tax:</string>
+    <string name="kwotaBrutto2">Gross Amount</string>
+    <string name="kwotaNetto2">Count Net from Gross</string>
+    <string name="about">About</string>
+    <string name="exit">Go back</string>
+    <string name="aboutText">Now counting from Net to Gross and Gross to Net is much simpler. You may use all the EU tax rates to count it!</string>
+    <string name="uwagi">Luckily it is my first Android app. If you have any suggestions or ideas, want to translate to your home language send me a message: lukisio@siedemjeden.net</string>
+    <string name="prosba">Support free software!\nClick the add and let me earn.</string>
+    <string name="wybor">Change VAT rate</string>
+    <string name="wybrana">Selected VAT rate</string>
+    <string name="zmiana">Select other</string>
+    <string name="oknoWybor">Your choice</string>
+    <string name="oknoKraj">Nation</string>
+    <string name="oknoStawkaPodst">Standard rate</string>
+    <string name="oknoStawkaUlg">Reduced rate</string>
+    <string name="zbytWysoka">Amount too high</string>
+    <string name="szklankaMleka">Did you know?&lt;br>&lt;br>If you click the add I\&apos;ll earn enough money for a half glass of milk.&lt;br>&lt;br>Click the add, cause I like milk!</string>
+    <string name="bannerClick">Click the add!</string>
+    <string name="spacja">" "</string>
+    <string name="klikne">"OK, I'll click!"</string>
+</resources>

@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/about"
+        android:title="@string/about">
+    </item>
+    <item
+        android:id="@+id/wybor"
+        android:title="@string/wybor">
+    </item>
+    <item
+        android:id="@+id/exit"
+        android:title="@string/quit">
+    </item>
+</menu>

@@ -4,5 +4,25 @@
     <string name="app_name">Feeder Call</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-
+    <string name="zapytanie_stepel">Wybierz stępel</string>
+       <string name="zapytanie_matryce">Wybierz matrycę</string>
+    <string-array name="narzedzia_gorne">
+        <item>OW200/K</item>
+        <item>OW210</item>
+        <item>OW200/S</item>
+        <item>OW280</item>
+        <item>OW203/K</item>
+        <item>OW202</item>
+    </string-array>
+    <string-array name="narzedzia_dolne">
+        <item>EV/W8</item>
+        <item>EV/W10</item>
+        <item>EV/W12</item>
+        <item>EV/W16</item>
+        <item>EV/W20</item>
+        <item>EV/002-W8</item>
+        <item>EV/002-W8+ZDL</item>
+        <item>EV/004-W12</item>
+        <item>EV/004-W12+ZDL</item>
+    </string-array>
 </resources>

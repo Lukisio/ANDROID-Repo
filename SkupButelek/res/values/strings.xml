@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Skup Butelek</string>
+    <string name="menu_settings">Ustawienia</string>
+    <string name="butelka">Kliknij na butelkę i rozpocznij skanowanie</string>
+
+</resources>
