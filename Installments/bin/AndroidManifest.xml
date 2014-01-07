@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lukis.installments"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="13" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.lukis.installments.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.lukis.installments.ListActivity"
+            android:label="@string/title_activity_list"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.DetailsActivity"
+            android:label="@string/title_activity_details"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.SummaryActivity"
+            android:label="@string/title_activity_summary"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.CreateActivity"
+            android:label="@string/title_activity_create"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.EditActivity"
+            android:label="@string/title_activity_edit"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.HistoryActivity"
+            android:label="@string/title_activity_history"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.NewPaymentActivity"
+            android:label="@string/title_activity_new_payment"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.ExpenseActivity"
+            android:label="@string/title_activity_expense"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.AWithdrawActivity"
+            android:label="@string/title_activity_awithdraw"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.MWithdrawActivity"
+            android:label="@string/title_activity_mwithdraw"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.SWithdrawActivity"
+            android:label="@string/title_activity_swithdraw"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.ADepositActivity"
+            android:label="@string/title_activity_adeposit"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.NewExpenseActivity"
+            android:label="@string/title_activity_new_expense"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.GenExpensesActivity"
+            android:label="@string/title_activity_gen_expenses"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.BudgetActivity"
+            android:label="@string/title_activity_budget" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.EditBudgetActivity"
+            android:label="@string/title_activity_edit_budget" >
+        </activity>
+    </application>
+
+</manifest>

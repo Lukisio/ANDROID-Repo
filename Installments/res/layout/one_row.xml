@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/attrib_name"
+        android:textStyle="bold"
+        android:layout_height="40dp"
+        android:paddingTop="4dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+    <TextView
+        android:id="@+id/attrib_lp"
+        android:textStyle="normal"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+    <TextView
+        android:id="@+id/attrib_item"
+        android:gravity="right"
+        android:textStyle="normal"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+    <TextView
+        android:id="@+id/attrib_value"
+        android:gravity="right"
+        android:textStyle="normal"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+ 
+
+  </TableRow>
