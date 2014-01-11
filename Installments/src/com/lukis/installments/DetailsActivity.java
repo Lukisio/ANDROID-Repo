@@ -108,14 +108,16 @@ public class DetailsActivity extends Activity {
 	    det.downpay = z.getString("DOWNPAY");
 	    det.monthpay = z.getString("MONTHPAY");
 	    det.numberPayed = z.getString("PAYED");
-		
+	    det.toPay = Double.valueOf(z.getString("TOPAY"));
+	    
+
 	    z.clear();
 	//    String lp="13";
 	//    det=KlasaUser.wyszukaj(lp);
 		Log.i("imię: ", det.name);
 		
 		profit=0;
-		toPay=0;
+		
 		nextPayment=0;
 		
 	//	profit= Float.valueOf(det.sellPrice)-Float.valueOf(det.buyPrice);
@@ -147,15 +149,15 @@ public class DetailsActivity extends Activity {
 		eBuyPrice.setText("Buy: "+det.buyPrice);
 		eSellPrice.setText("Sell: "+det.sellPrice);
 		if(det.buyPrice.trim().length() <= 0) det.buyPrice="0";
-		if(det.sellPrice.trim().length() > 0) det.buyPrice="0";
+		if(det.sellPrice.trim().length() <= 0) det.sellPrice="0";
 		double profit = Double.valueOf(det.sellPrice) - Double.valueOf(det.buyPrice);
 		eProfit.setText("Profit: "+profit); //nie z klasy
 		eDownpay.setText("Downpayed: "+det.downpay);
 		eMonthpay.setText("Monthpayment: "+det.monthpay);
 		ePayed.setText("Payed number: "+det.numberPayed);
-		eToPay.setText("To pay: "+toPay); //nie z klasy
+		eToPay.setText("To pay: "+det.toPay);
 		eNextPayment.setText("Next Payment: "+det.monthpay); //nie z klasy
-		eNextDate.setText("31.11.2012");
+		eNextDate.setText(" ");
 	}
 	
 	public void edit(View view) {
@@ -171,6 +173,7 @@ public class DetailsActivity extends Activity {
 	    intent.putExtra("MONTHPAY", det.monthpay);
 	    intent.putExtra("PAYED", det.numberPayed);
 	    intent.putExtra("REMAIN", det.remain);
+	    intent.putExtra("TOPAY", String.valueOf(det.toPay));
     	startActivity(intent);
     	finish();
 	}

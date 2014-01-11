@@ -49,6 +49,7 @@ public class EditActivity extends Activity {
 	    det.downpay = z.getString("DOWNPAY");
 	    det.monthpay = z.getString("MONTHPAY");
 	    det.numberPayed = z.getString("PAYED");
+	    det.toPay = Double.valueOf(z.getString("TOPAY"));
 	    
 		info = (TextView)findViewById(R.id.textView1);
 		eDate = (TextView)findViewById(R.id.textView2);
@@ -140,6 +141,7 @@ public class EditActivity extends Activity {
 		    intent.putExtra("MONTHPAY", det.monthpay);
 		    intent.putExtra("PAYED", det.numberPayed);
 		    intent.putExtra("REMAIN", det.remain);
+		    intent.putExtra("TOPAY", String.valueOf(det.toPay));
 	    	startActivity(intent);
 	    	return;
 		  }
@@ -166,6 +168,7 @@ public class EditActivity extends Activity {
 	    intent.putExtra("MONTHPAY", det.monthpay);
 	    intent.putExtra("PAYED", det.numberPayed);
 	    intent.putExtra("REMAIN", det.remain);
+	    intent.putExtra("TOPAY", String.valueOf(det.toPay));
     	startActivity(intent);
     	finish();
 	}

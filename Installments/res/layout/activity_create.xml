@@ -42,7 +42,7 @@
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
                 android:layout_marginTop="24dp"
-                android:hint="Adres domu 4"
+                android:hint=" "
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
@@ -56,7 +56,7 @@
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
                 android:layout_toLeftOf="@+id/textView19"
-                android:hint="Zakupiona rzecz 5"
+                android:hint=" "
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
@@ -70,7 +70,7 @@
                 android:inputType="number"
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
-                android:hint="Zakup 6"
+                android:hint=" "
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
@@ -84,7 +84,7 @@
                 android:inputType="number"
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
-                android:hint="Sprzedaży 7"
+                android:hint=" "
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
@@ -99,7 +99,7 @@
                 android:inputType="number"
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
-                android:hint="1 Wplata9"
+                android:hint=" "
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
@@ -113,7 +113,7 @@
                 android:inputType="number"
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
-                android:hint="Rata 10"
+                android:hint=" "
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -139,7 +139,7 @@
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
                 android:ems="10"
-                android:hint="Imię i nazwisko 3"
+                android:hint=" "
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -157,7 +157,7 @@
                 android:singleLine="true"
                 android:textStyle="bold"
                 android:ems="10"
-                android:hint="Data 2"
+                android:hint=" "
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView

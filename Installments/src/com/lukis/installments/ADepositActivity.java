@@ -25,6 +25,7 @@ public class ADepositActivity extends Activity {
 	private static final String TAG_VALUE = "value";
 
 	public static String urlExp = "http://united.webege.com/generator.php?table=expense";
+	public static String urlBud = "http://united.webege.com/generator.php?table=budget";
 	
 	TableLayout table;
 	JSONArray zbrojenia = null;

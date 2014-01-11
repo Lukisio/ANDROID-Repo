@@ -30,6 +30,7 @@ public class KlasaUser extends Activity {
 	    String monthpay;
 	    String numberPayed;
 	    String remain;
+	    Double toPay;
 	    public String[][] payments;
 	    public KlasaUser(){
 	        super();

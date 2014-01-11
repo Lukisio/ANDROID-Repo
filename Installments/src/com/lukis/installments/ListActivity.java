@@ -37,6 +37,8 @@ public class ListActivity extends Activity {
 		
 	// JSON Node names
 	 static final String TAG_TABELA = "installments";
+	private static final String TAG_DATELIST = "datelist";
+	private static final String TAG_PAYLIST = "paylist";
 	private static final String TAG_LP = "lp";
 	private static final String TAG_DATE = "date";
 	private static final String TAG_NAME = "name";
@@ -185,6 +187,7 @@ public class ListActivity extends Activity {
 	    intent.putExtra("MONTHPAY", detal.monthpay);
 	    intent.putExtra("PAYED", detal.numberPayed);
 	    intent.putExtra("REMAIN", detal.remain);
+	    intent.putExtra("TOPAY", String.valueOf(detal.toPay));
     	startActivity(intent);
 	}
 
@@ -323,6 +326,20 @@ public class ListActivity extends Activity {
 			    detal.downpay = z.getString(TAG_DOWNPAY);
 			    detal.monthpay = z.getString(TAG_MONTHPAY);
 			    detal.numberPayed = z.getString(TAG_PAYED);
+			    
+			    Log.i("numberPayed: ", detal.numberPayed);
+
+				detal.payments = new String[2][Integer.valueOf(detal.numberPayed)+1];	
+				detal.toPay=Double.valueOf(detal.sellPrice)-Double.valueOf(detal.downpay);
+				
+				for(int j = 1 ; j <= Integer.valueOf(detal.numberPayed); j++){
+					Log.i("paylist: ", z.getString(TAG_PAYLIST+j));
+				    detal.payments[0][j]=z.getString(TAG_DATELIST+j);
+				    detal.payments[1][j]=z.getString(TAG_PAYLIST+j);
+				    detal.toPay-=Double.valueOf(detal.payments[1][j]);
+				}
+				
+				
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -332,8 +349,8 @@ public class ListActivity extends Activity {
 
     public void onBackPressed() //wracasz do poprzedniego activity
     {
-//    	Intent intent = new Intent(this, MainActivity.class);
-//    	startActivity(intent);
+    	Intent intent = new Intent(this, MainActivity.class);
+    	startActivity(intent);
     }
 	
 	@Override

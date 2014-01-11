@@ -179,7 +179,7 @@ public class HistoryActivity extends Activity {
 			    detal.monthpay = z.getString(TAG_MONTHPAY);
 			    detal.numberPayed = z.getString(TAG_PAYED);
 				for(int i = 0; i <= Integer.valueOf(detal.numberPayed); i++){
-					Log.i("datelist: ", TAG_DATELIST+i);
+					Log.i("datelist: ", z.getString(TAG_DATELIST+i));
 			    detal.payments[0][i]=z.getString(TAG_DATELIST+i);
 			    detal.payments[1][i]=z.getString(TAG_PAYLIST+i);		
 				}

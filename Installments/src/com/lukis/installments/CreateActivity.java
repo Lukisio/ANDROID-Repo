@@ -38,7 +38,7 @@ public class CreateActivity extends Activity {
 		kreciolek = (ProgressBar)findViewById(R.id.progressBar1);
 
 		eDate = (TextView)findViewById(R.id.textView2);
-		eDate.setText(todayDate.getDate() + "." + (1+todayDate.getMonth()) + "." + (1900+todayDate.getYear()));
+		eDate.setText((1900+todayDate.getYear()) + "-" + (1+todayDate.getMonth()) + "-" + todayDate.getDate());
 		eName = (TextView)findViewById(R.id.textView3);
 		eAddress = (TextView)findViewById(R.id.textView4);
 		eItem = (TextView)findViewById(R.id.textView5);
@@ -87,6 +87,7 @@ public class CreateActivity extends Activity {
 		    det.sellPrice = "0";
 		    det.downpay = "0";
 		    det.monthpay = "0";
+		    det.numberPayed = "0";
 		    
 		    det.date= eDate.getText().toString();
 		    det.name = eName.getText().toString();
@@ -178,7 +179,7 @@ public class CreateActivity extends Activity {
 	
     public void onBackPressed() 
     {
-    	Intent intent = new Intent(CreateActivity.this, DetailsActivity.class);
+    	Intent intent = new Intent(CreateActivity.this, ListActivity.class);
     	startActivity(intent);
     	finish();
     }

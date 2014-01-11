@@ -53,33 +53,63 @@ public class KlasaSummary extends Activity {
         super();
     }
     
-    public double obliczDeposits(){
-		new WypelnijSummaryExpenses().execute("");
+    public double obliczDeposits(int year, int month){
+    	String strMonth;
+    	if (month<10){
+    		strMonth="0"+month;
+    	} else {
+    		strMonth=""+month;
+    	}
+		new WypelnijSummaryExpenses().execute(""+year, ""+strMonth);
 		while(czekaj){}
 		return deposits;
     }
     
-    public double obliczDownPayments(){
-		new WypelnijSummaryDownPayments().execute("");
+    public double obliczDownPayments(int year, int month){
+    	String strMonth;
+    	if (month<10){
+    		strMonth="0"+month;
+    	} else {
+    		strMonth=""+month;
+    	}
+		new WypelnijSummaryDownPayments().execute(""+year, ""+strMonth);
 		while(czekaj){}
 		return downPayments;
     }
     
-    public double obliczPaymentsDone(){
-		new WypelnijSummaryPaymentsDone().execute("");
+    public double obliczPaymentsDone(int year, int month){
+    	String strMonth;
+    	if (month<10){
+    		strMonth="0"+month;
+    	} else {
+    		strMonth=""+month;
+    	}
+		new WypelnijSummaryPaymentsDone().execute(""+year, ""+strMonth);
 		while(czekaj){}
 		return payments;
     }
     
-    public double obliczTotalInstallments(){
-		new WypelnijSummaryTotalInstallments().execute("");
+    public double obliczTotalInstallments(int year, int month){
+    	String strMonth;
+    	if (month<10){
+    		strMonth="0"+month;
+    	} else {
+    		strMonth=""+month;
+    	}
+		new WypelnijSummaryTotalInstallments().execute(""+year, ""+strMonth);
 		while(czekaj){}
 		Log.i("total installments: ", ""+totalInstallments);
 		return totalInstallments;
     }
     
-    public double obliczCurrentProfit(){
-		new WypelnijSummaryCurrentProfit().execute("");
+    public double obliczCurrentProfit(int year, int month){
+    	String strMonth;
+    	if (month<10){
+    		strMonth="0"+month;
+    	} else {
+    		strMonth=""+month;
+    	}
+		new WypelnijSummaryCurrentProfit().execute(""+year, ""+strMonth);
 		while(czekaj){}
 		Log.i("current profit: ", ""+currentProfit);
 		return currentProfit;
@@ -110,33 +140,52 @@ public class KlasaSummary extends Activity {
 				dlugosc++;
 			//	Log.i("tag name: ", z.getString(TAG_NAME));
 				if (z.getString(TAG_NAME).equals("Deposit_A")){ //wypełnia Deposits dla Name == Deposit_A
-					if(z.getString(TAG_DEPOSIT).length() > 0) lista[0] = z.getString(TAG_DEPOSIT);
+					if(z.getString(TAG_DEPOSIT).length() > 0) lista[0] = z.getString(TAG_DEPOSIT); else lista[0]="0";
 			//		Log.i("tag deposit: ", z.getString(TAG_DEPOSIT));
+				Log.i("data: ", z.getString(TAG_DATE));
+
+				Log.i("data2: ", "" + arg0[0] + "-" + arg0[1]);
+				
+					if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
+					{
 				    deposits += Double.valueOf(lista[0]);
+					}
 				}
 				
 				if (z.getString(TAG_NAME).equals("Withdraw_A")){ 
-					if(z.getString(TAG_DEPOSIT).length() > 0) lista[0] = z.getString(TAG_DEPOSIT);
+					if(z.getString(TAG_DEPOSIT).length() > 0) lista[0] = z.getString(TAG_DEPOSIT); else lista[0]="0";
 			//		Log.i("tag withdrawal: ", z.getString(TAG_DEPOSIT));
+					if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
+					{
 					aWithdrawals += Double.valueOf(lista[0]);
+					}
 				}
 				
 				if (z.getString(TAG_NAME).equals("Withdraw_M")){ 
-					if(z.getString(TAG_DEPOSIT).length() > 0) lista[0] = z.getString(TAG_DEPOSIT);
+					if(z.getString(TAG_DEPOSIT).length() > 0) lista[0] = z.getString(TAG_DEPOSIT); else lista[0]="0";
 			//		Log.i("tag withdrawal: ", z.getString(TAG_DEPOSIT));
+					if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
+					{
 					mWithdrawals += Double.valueOf(lista[0]);
+					}
 				}
 
 				if (z.getString(TAG_NAME).equals("Withdraw_S")){
-					if(z.getString(TAG_DEPOSIT).length() > 0) lista[0] = z.getString(TAG_DEPOSIT);
+					if(z.getString(TAG_DEPOSIT).length() > 0) lista[0] = z.getString(TAG_DEPOSIT); else lista[0]="0";
 			//		Log.i("tag withdrawal: ", z.getString(TAG_DEPOSIT));
+					if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
+					{
 					sWithdrawals += Double.valueOf(lista[0]);
+					}
 				}
 				
 				if (z.getString(TAG_NAME).equals("Gen_Expense")){
-					if(z.getString(TAG_DEPOSIT).length() > 0) lista[0] = z.getString(TAG_DEPOSIT);
+					if(z.getString(TAG_DEPOSIT).length() > 0) lista[0] = z.getString(TAG_DEPOSIT); else lista[0]="0";
 			//		Log.i("tag withdrawal: ", z.getString(TAG_DEPOSIT));
+					if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
+					{
 					expenses += Double.valueOf(lista[0]);
+					}
 				}
 
 			 //   publishProgress(i);
@@ -182,12 +231,15 @@ protected String doInBackground(String... arg0) {
        // looping through All Contacts
 			for(int i = 0; i < zbrojenia.length(); i++){
 				JSONObject z = zbrojenia.getJSONObject(i);
-				if(z.getString(TAG_DOWNPAY).length() > 0) lista[1] = z.getString(TAG_DOWNPAY);
-			    downPayments += Double.valueOf(lista[1]);
 
-				if(z.getString(TAG_BUYPRICE).length() > 0) lista[1] = z.getString(TAG_BUYPRICE);
-			    allBoughts += Double.valueOf(lista[1]);
-
+				if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
+				{
+					if(z.getString(TAG_DOWNPAY).length() > 0) lista[1] = z.getString(TAG_DOWNPAY); else lista[1]="0";
+				    downPayments += Double.valueOf(lista[1]);
+	
+					if(z.getString(TAG_BUYPRICE).length() > 0) lista[1] = z.getString(TAG_BUYPRICE); else lista[1]="0";
+				    allBoughts += Double.valueOf(lista[1]);
+				}
 			}
    } catch (JSONException e) {
        e.printStackTrace();
@@ -230,22 +282,26 @@ return null;
 	       // looping through All Contacts
 				for(int i = 0; i < zbrojenia.length(); i++){
 					JSONObject z = zbrojenia.getJSONObject(i);
-					if(z.getString(TAG_PAYED).length() > 0) {
-						lista[1] = z.getString(TAG_PAYED);
-						payed= Integer.valueOf(lista[1]);
-						Log.i("payed: ", ""+payed);
-						payed++;
-						for(int j = 1; j< payed ; j++){ //UWAGA! Liczymy od pozycji paylist1!
 
-							Log.i("length: ", ""+TAG_PAYLIST+j);
-							if(z.getString(TAG_PAYLIST+j).length() > 0){
-								lista[2] = z.getString(TAG_PAYLIST+j);
-								Log.i("lista[2]: ", ""+Double.valueOf(lista[2]));
-								payments+= Double.valueOf(lista[2]);
-							};
-
-						   
-						}	
+					if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
+					{
+						if(z.getString(TAG_PAYED).length() > 0) {
+							lista[1] = z.getString(TAG_PAYED);
+							payed= Integer.valueOf(lista[1]);
+							Log.i("payed: ", ""+payed);
+							payed++;
+							for(int j = 1; j< payed ; j++){ //UWAGA! Liczymy od pozycji paylist1!
+	
+								Log.i("length: ", ""+TAG_PAYLIST+j);
+								if(z.getString(TAG_PAYLIST+j).length() > 0){
+									lista[2] = z.getString(TAG_PAYLIST+j);
+									Log.i("lista[2]: ", ""+Double.valueOf(lista[2]));
+									payments+= Double.valueOf(lista[2]);
+								};
+	
+							   
+							}	
+						}
 					}
 
 				}
@@ -285,33 +341,35 @@ return null;
 					payments=0.0;
 					JSONObject z = zbrojenia.getJSONObject(i);
 
-					if(z.getString(TAG_SELLPRICE).length() > 0) {
-						lista[1] = z.getString(TAG_SELLPRICE);
-						sellPrice = Double.valueOf(lista[1]);
-					}
-					
-					if(z.getString(TAG_DOWNPAY).length() > 0) {
-						lista[1] = z.getString(TAG_DOWNPAY);
-						downPayment = Double.valueOf(lista[1]);
-					}
-				    
-					
-					if(z.getString(TAG_PAYED).length() > 0) {
-						lista[1] = z.getString(TAG_PAYED);
-						payed= Integer.valueOf(lista[1]);
-						payed++;
-						for(int j = 1; j< payed ; j++){ //UWAGA! Liczymy od pozycji paylist1!
-					//		Log.i("length: ", ""+TAG_PAYLIST+j);
-							if(z.getString(TAG_PAYLIST+j).length() > 0){
-								lista[2] = z.getString(TAG_PAYLIST+j);
-					//			Log.i("lista[2]: ", ""+Double.valueOf(lista[2]));
-								payments+= Double.valueOf(lista[2]);
-							};
+					if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
+					{
+						if(z.getString(TAG_SELLPRICE).length() > 0) {
+							lista[1] = z.getString(TAG_SELLPRICE);
+							sellPrice = Double.valueOf(lista[1]);
 						}
+						
+						if(z.getString(TAG_DOWNPAY).length() > 0) {
+							lista[1] = z.getString(TAG_DOWNPAY);
+							downPayment = Double.valueOf(lista[1]);
+						}
+					    
+						
+						if(z.getString(TAG_PAYED).length() > 0) {
+							lista[1] = z.getString(TAG_PAYED);
+							payed= Integer.valueOf(lista[1]);
+							payed++;
+							for(int j = 1; j< payed ; j++){ //UWAGA! Liczymy od pozycji paylist1!
+						//		Log.i("length: ", ""+TAG_PAYLIST+j);
+								if(z.getString(TAG_PAYLIST+j).length() > 0){
+									lista[2] = z.getString(TAG_PAYLIST+j);
+						//			Log.i("lista[2]: ", ""+Double.valueOf(lista[2]));
+									payments+= Double.valueOf(lista[2]);
+								};
+							}
+						}
+						
+						totalInstallments+= (sellPrice-downPayment-payments);
 					}
-					
-					totalInstallments+= (sellPrice-downPayment-payments);
-
 				}
 	   } catch (JSONException e) {
 	       e.printStackTrace();
@@ -348,42 +406,44 @@ return null;
 					payments=0.0;
 					JSONObject z = zbrojenia.getJSONObject(i);
 
-					if(z.getString(TAG_SELLPRICE).length() > 0) {
-						lista[1] = z.getString(TAG_SELLPRICE);
-						sellPrice = Double.valueOf(lista[1]);
-					}
-					
-					if(z.getString(TAG_BUYPRICE).length() > 0) {
-						lista[1] = z.getString(TAG_BUYPRICE);
-						buyPrice = Double.valueOf(lista[1]);
-					}
-					
-					if(z.getString(TAG_DOWNPAY).length() > 0) {
-						lista[1] = z.getString(TAG_DOWNPAY);
-						downPayment = Double.valueOf(lista[1]);
-					}
-					
-					if(z.getString(TAG_PAYED).length() > 0) {
-						lista[1] = z.getString(TAG_PAYED);
-						payed= Integer.valueOf(lista[1]);
-						payed++;
-						for(int j = 1; j< payed ; j++){ //UWAGA! Liczymy od pozycji paylist1!
-					//		Log.i("length: ", ""+TAG_PAYLIST+j);
-							if(z.getString(TAG_PAYLIST+j).length() > 0){
-								lista[2] = z.getString(TAG_PAYLIST+j);
-						//		Log.i("lista[2]: ", ""+Double.valueOf(lista[2]));
-								payments+= Double.valueOf(lista[2]);
-							};
+					if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
+					{
+						if(z.getString(TAG_SELLPRICE).length() > 0) {
+							lista[1] = z.getString(TAG_SELLPRICE);
+							sellPrice = Double.valueOf(lista[1]);
 						}
+						
+						if(z.getString(TAG_BUYPRICE).length() > 0) {
+							lista[1] = z.getString(TAG_BUYPRICE);
+							buyPrice = Double.valueOf(lista[1]);
+						}
+						
+						if(z.getString(TAG_DOWNPAY).length() > 0) {
+							lista[1] = z.getString(TAG_DOWNPAY);
+							downPayment = Double.valueOf(lista[1]);
+						}
+						
+						if(z.getString(TAG_PAYED).length() > 0) {
+							lista[1] = z.getString(TAG_PAYED);
+							payed= Integer.valueOf(lista[1]);
+							payed++;
+							for(int j = 1; j< payed ; j++){ //UWAGA! Liczymy od pozycji paylist1!
+						//		Log.i("length: ", ""+TAG_PAYLIST+j);
+								if(z.getString(TAG_PAYLIST+j).length() > 0){
+									lista[2] = z.getString(TAG_PAYLIST+j);
+							//		Log.i("lista[2]: ", ""+Double.valueOf(lista[2]));
+									payments+= Double.valueOf(lista[2]);
+								};
+							}
+						}
+						remaining=sellPrice-downPayment-payments;
+						Log.i("sellPrice: ", ""+sellPrice);
+						Log.i("remaining: ", ""+remaining);
+						Log.i("downPayment: ", ""+downPayment);
+						Log.i("buyPrice: ", ""+buyPrice);
+						
+						currentProfit+= ((sellPrice-remaining)*(sellPrice-buyPrice)/sellPrice);
 					}
-					remaining=sellPrice-downPayment-payments;
-					Log.i("sellPrice: ", ""+sellPrice);
-					Log.i("remaining: ", ""+remaining);
-					Log.i("downPayment: ", ""+downPayment);
-					Log.i("buyPrice: ", ""+buyPrice);
-					
-					currentProfit+= ((sellPrice-remaining)*(sellPrice-buyPrice)/sellPrice);
-
 				}
 	   } catch (JSONException e) {
 	       e.printStackTrace();
