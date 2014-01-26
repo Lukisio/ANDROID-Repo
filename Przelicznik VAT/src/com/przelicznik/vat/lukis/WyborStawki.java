@@ -3,6 +3,12 @@ package com.przelicznik.vat.lukis;
 
 import java.util.Locale;
 
+import com.google.ads.Ad;
+import com.google.ads.AdListener;
+import com.google.ads.AdRequest;
+import com.google.ads.InterstitialAd;
+import com.google.ads.AdRequest.ErrorCode;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,10 +21,11 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 
-public class WyborStawki extends MainActivity {
+public class WyborStawki extends MainActivity implements AdListener  {
 
 //	private TextView info, info2;
 	
+	private InterstitialAd interstitial;
 	GridView tabelka;
 	TextView info;
 	
@@ -37,6 +44,18 @@ public class WyborStawki extends MainActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wybor_stawki);
+        
+        // Create the interstitial
+        interstitial = new InterstitialAd(this, "ca-app-pub-3383509206758569/9593811630");
+
+        // Create ad request
+        AdRequest adRequest = new AdRequest();
+
+        // Begin loading your interstitial
+        interstitial.loadAd(adRequest);
+
+        // Set Ad Listener to use the callbacks below
+        interstitial.setAdListener(this);
         
     	info = (TextView)findViewById(R.id.textView1);
 //   	info2 = (TextView)findViewById(R.id.textView2);
@@ -113,6 +132,38 @@ public class WyborStawki extends MainActivity {
         
         
     }
+
+
+	public void onDismissScreen(Ad arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void onFailedToReceiveAd(Ad arg0, ErrorCode arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void onLeaveApplication(Ad arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void onPresentScreen(Ad arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void onReceiveAd(Ad ad) {
+		  Log.d("OK", "Received ad");
+		  if (ad == interstitial) {
+		    interstitial.show();
+		  }
+	}
 
 
     

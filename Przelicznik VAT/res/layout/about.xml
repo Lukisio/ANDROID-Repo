@@ -38,7 +38,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/uwagi" />
 
-    <com.google.ads.AdView
+<!--     <com.google.ads.AdView
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
         ads:adUnitId="3faea73bf3fe42c7"
         ads:loadAdOnCreate="true"
         ads:testDevices="TEST_EMULATOR, 43423541314A57353947" >
-    </com.google.ads.AdView>
+    </com.google.ads.AdView> -->
 
     <Button
         android:id="@+id/button1"

@@ -44,30 +44,29 @@ public final class R {
         public static final int sl=0x7f02001e;
     }
     public static final class id {
-        public static final int TextView01=0x7f07000d;
-        public static final int TextView02=0x7f07000e;
-        public static final int TextView03=0x7f07000f;
-        public static final int about=0x7f070014;
+        public static final int TextView01=0x7f07000c;
+        public static final int TextView02=0x7f07000d;
+        public static final int TextView03=0x7f07000e;
+        public static final int about=0x7f070013;
         public static final int aboutLayout=0x7f070000;
-        public static final int adView=0x7f070004;
-        public static final int butZmianaStawki=0x7f07000c;
-        public static final int button1=0x7f070006;
-        public static final int exit=0x7f070016;
-        public static final int gridView1=0x7f070013;
-        public static final int icon_image=0x7f070011;
-        public static final int icon_text=0x7f070012;
-        public static final int mainLayout=0x7f070007;
-        public static final int menu_settings=0x7f070017;
-        public static final int oknoCeny=0x7f070009;
-        public static final int oknoCeny2=0x7f07000b;
-        public static final int seekBar1=0x7f070008;
+        public static final int butZmianaStawki=0x7f07000b;
+        public static final int button1=0x7f070004;
+        public static final int exit=0x7f070015;
+        public static final int gridView1=0x7f070012;
+        public static final int icon_image=0x7f070010;
+        public static final int icon_text=0x7f070011;
+        public static final int mainLayout=0x7f070006;
+        public static final int menu_settings=0x7f070016;
+        public static final int oknoCeny=0x7f070008;
+        public static final int oknoCeny2=0x7f07000a;
+        public static final int seekBar1=0x7f070007;
         public static final int textView1=0x7f070001;
         public static final int textView2=0x7f070002;
         public static final int textView3=0x7f070003;
         public static final int textView4=0x7f070005;
-        public static final int textView5=0x7f07000a;
-        public static final int widget44=0x7f070010;
-        public static final int wybor=0x7f070015;
+        public static final int textView5=0x7f070009;
+        public static final int widget44=0x7f07000f;
+        public static final int wybor=0x7f070014;
     }
     public static final class layout {
         public static final int about=0x7f030000;
@@ -81,11 +80,11 @@ public final class R {
     }
     public static final class string {
         public static final int about=0x7f04000c;
-        public static final int aboutText=0x7f04000e;
+        public static final int aboutText=0x7f04000f;
         public static final int app_name=0x7f040001;
-        public static final int bannerClick=0x7f04001a;
-        public static final int exit=0x7f04000d;
-        public static final int klikne=0x7f04001c;
+        public static final int bannerClick=0x7f04001b;
+        public static final int exit=0x7f04000e;
+        public static final int klikne=0x7f04001d;
         public static final int kwota=0x7f040008;
         public static final int kwotaBrutto=0x7f040004;
         public static final int kwotaBrutto2=0x7f04000a;
@@ -93,23 +92,23 @@ public final class R {
         public static final int kwotaVat=0x7f040009;
         public static final int licz=0x7f040007;
         public static final int menu_settings=0x7f040002;
-        public static final int oknoKraj=0x7f040015;
-        public static final int oknoStawkaPodst=0x7f040016;
-        public static final int oknoStawkaUlg=0x7f040017;
-        public static final int oknoWybor=0x7f040014;
-        public static final int prosba=0x7f040010;
+        public static final int oknoKraj=0x7f040016;
+        public static final int oknoStawkaPodst=0x7f040017;
+        public static final int oknoStawkaUlg=0x7f040018;
+        public static final int oknoWybor=0x7f040015;
+        public static final int prosba=0x7f040011;
         public static final int przelKwota=0x7f040000;
-        public static final int quit=0x7f04001d;
-        public static final int spacja=0x7f04001b;
+        public static final int quit=0x7f04000d;
+        public static final int spacja=0x7f04001c;
         public static final int stawka=0x7f040006;
         public static final int stawkaPodatku=0x7f040005;
-        public static final int szklankaMleka=0x7f040019;
+        public static final int szklankaMleka=0x7f04001a;
         public static final int title_activity_main=0x7f040003;
-        public static final int uwagi=0x7f04000f;
-        public static final int wybor=0x7f040011;
-        public static final int wybrana=0x7f040012;
-        public static final int zbytWysoka=0x7f040018;
-        public static final int zmiana=0x7f040013;
+        public static final int uwagi=0x7f040010;
+        public static final int wybor=0x7f040012;
+        public static final int wybrana=0x7f040013;
+        public static final int zbytWysoka=0x7f040019;
+        public static final int zmiana=0x7f040014;
     }
     public static final class style {
         public static final int AppTheme=0x7f050000;

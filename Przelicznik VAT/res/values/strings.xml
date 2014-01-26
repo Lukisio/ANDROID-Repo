@@ -12,6 +12,7 @@
     <string name="kwotaBrutto2">Gross Amount</string>
     <string name="kwotaNetto2">Count Net from Gross</string>
     <string name="about">About</string>
+    <string name="quit">Exit</string>
     <string name="exit">Go back</string>
     <string name="aboutText">Now counting from Net to Gross and Gross to Net is much simpler. You may use all the EU tax rates to count it!</string>
     <string name="uwagi">Luckily it is my first Android app. If you have any suggestions or ideas, want to translate to your home language send me a message: lukisio@siedemjeden.net</string>
