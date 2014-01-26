@@ -283,7 +283,10 @@ public class GlowneOkno extends Activity implements OnSeekBarChangeListener{
     return ret;
     }        
     
-
+	public void about(View v){
+    	Intent myIntent = new Intent(GlowneOkno.this, activity2.class);
+    	startActivity(myIntent);
+	}
     
     
 	@Override

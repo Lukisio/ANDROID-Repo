@@ -11,7 +11,7 @@
     <string name="about">O programie</string>
     <string name="instrukcja">Jak pewnie widzisz, ekran podzielony jest na dwie części, symbolizujące dwie różne pizze. Suwając suwakiem (masło maślane?) ustawiamy średnicę pizzy, cenę zaś wpisujemy w pole poniżej. Podobnie ustawiamy parametry drugiej pizzy i klikamy przycisk &quot;Porównaj&quot;.</string>
     <string name="instrukcjaInfo">Instrukcja obsługi</string>
-    <string name="uwagi">Uwagi odnośnie działania aplikacji proszę wysyłać pod adres: lukisio@siedemjeden.net Wspieraj darmowe oprogramowanie! Kliknij w reklamę i daj zarobić.</string>
+    <string name="uwagi">Uwagi odnośnie działania aplikacji proszę wysyłać pod adres: lukisio@siedemjeden.net Wspieraj darmowe oprogramowanie!</string>
     <string name="pln">PLN</string>
     <string name="nr_2">Nr 2</string>
     <string name="nr_1">Nr 1</string>

@@ -61,7 +61,7 @@
         android:layout_alignBaseline="@+id/textView3"
         android:layout_alignBottom="@+id/textView3"
         android:layout_toRightOf="@+id/textView3"
-        android:ems="10"
+        android:ems="8"
         android:inputType="phone"
 	    android:digits="1234567890."
 	    android:singleLine="true"
@@ -123,7 +123,7 @@
         android:layout_alignBottom="@+id/textView8"
         android:layout_alignBaseline="@+id/textView8"
         android:layout_toRightOf="@+id/textView8"
-        android:ems="10"
+        android:ems="8"
         android:inputType="phone"
 	    android:digits="1234567890."
 	    android:singleLine="true"
@@ -131,34 +131,25 @@
         android:selectAllOnFocus="true"
         android:nextFocusForward="@+id/glowneOkno" />
 
-    <com.google.ads.AdView
+<!--     <com.google.ads.AdView
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         ads:adSize="BANNER"
-        ads:adUnitId="8f04482daad34ae5"
+        ads:adUnitId="ca-app-pub-3383509206758569/5501689232"
         ads:loadAdOnCreate="true"
         ads:testDevices="TEST_EMULATOR, 43423541314A57353947" >
-    </com.google.ads.AdView>
-
-    <Button
-        android:id="@+id/butWylicz"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/adView"
-        android:layout_alignParentRight="true"
-        android:text="@string/wylicz" />
+    </com.google.ads.AdView> -->
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/butWylicz"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+    	android:layout_alignParentBottom="true"
+    	android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
         android:text="@string/spacja"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -232,7 +223,8 @@
     android:layout_toRightOf="@+id/editText1"
     android:layout_marginLeft="10dp"
     android:text="@string/spacja"
-    android:textAppearance="?android:attr/textAppearanceSmall" />
+    
+    android:textSize="14dp" />
 
 <TextView
     android:id="@+id/textView2Wartosc"
@@ -242,7 +234,7 @@
     android:layout_toRightOf="@+id/editText2"
     android:layout_marginLeft="10dp"
 	android:text="@string/spacja"
-    android:textAppearance="?android:attr/textAppearanceSmall" />
+    android:textSize="14dp" />
 
 <TextView
     android:id="@+id/textView1Pole"
@@ -252,7 +244,7 @@
     android:layout_toRightOf="@+id/editText1"
     android:layout_marginLeft="10dp"
     android:text="@string/spacja"
-    android:textAppearance="?android:attr/textAppearanceSmall" />
+    android:textSize="16dp" />
 
 <TextView
     android:id="@+id/textView2Pole"
@@ -262,6 +254,25 @@
     android:layout_toRightOf="@+id/editText2"
     android:layout_marginLeft="10dp"
     android:text="@string/spacja"
-    android:textAppearance="?android:attr/textAppearanceSmall" />
+    android:textSize="16dp" />
+
+<Button
+    android:id="@+id/button1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_marginBottom="60dp"
+    android:onClick="about"
+    android:text="Nie klikaj tu nigdy!" />
+
+<Button
+    android:id="@+id/butWylicz"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@+id/button1"
+    android:layout_alignBottom="@+id/button1"
+    android:layout_alignParentRight="true"
+    android:text="@string/wylicz" />
 
 </RelativeLayout>
