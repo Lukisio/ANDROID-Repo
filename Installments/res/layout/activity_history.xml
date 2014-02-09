@@ -14,36 +14,46 @@
         android:layout_height="wrap_content"
         android:text="History of Transactions"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-    <ScrollView
-        android:id="@+id/scrollView1"
+
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-	    android:layout_alignParentLeft="true"
-	    android:layout_alignParentRight="true"
-      	android:layout_below="@+id/textView1" >
-            
-	    <TableLayout
-	        android:id="@+id/tableLayout"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_marginRight="15dp"
-	        android:orientation="vertical"
-	        android:stretchColumns="*">
-	        
-	    	<TextView
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:text="Total Paid: "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
         android:id="@+id/line2"
         style="?android:attr/listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/attrib_name"
-        
+        android:layout_below="@+id/textView2"
+        android:layout_marginLeft="8dp"
         android:gravity="center_horizontal"
         android:paddingTop="1dip" />
-	
-	    </TableLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/line2" >
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:orientation="vertical"
+            android:stretchColumns="*" >
+        </TableLayout>
     </ScrollView>
 
     <ProgressBar
@@ -52,8 +62,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:visibility="gone"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/button1"
@@ -63,5 +73,17 @@
         android:layout_alignParentLeft="true"
         android:onClick="newEntry"
         android:text="Add new payment" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button1"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:text=" "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

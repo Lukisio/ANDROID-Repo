@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ public class SWithdrawActivity extends Activity {
 	private static final String TAG_NAME = "name";
 	private static final String TAG_DATE = "date";
 	private static final String TAG_VALUE = "value";
+	private static final String TAG_DESCRIPTION = "description";
 
 	public static String urlExp = "http://united.webege.com/generator.php?table=expense";
 	
@@ -29,9 +31,10 @@ public class SWithdrawActivity extends Activity {
 	JSONArray zbrojenia = null;
 	public Boolean czekaj = false;
     public String[][] lista;
-    int lp, dlugosc;
+    int dlugosc;
+    String lp;
     String NAME="Withdraw_S";
-    double suma=0.0;
+    int suma=0;
     TextView eSuma;
 
 	@Override
@@ -40,7 +43,6 @@ public class SWithdrawActivity extends Activity {
 		setContentView(R.layout.activity_swithdraw);
 		eSuma = (TextView)findViewById(R.id.textView2);
 	}
-	
     
     protected void onResume(){
     	 super.onResume();
@@ -50,41 +52,41 @@ public class SWithdrawActivity extends Activity {
 		
 		table = (TableLayout)SWithdrawActivity.this.findViewById(R.id.tableLayout);
 		table.removeAllViews();
+        if (dlugosc>0){
 		for(int i=0;i<dlugosc;i++)
 		{		
 			
 		    // Inflate your row "template" and fill out the fields.
-		    TableRow row = (TableRow)LayoutInflater.from(SWithdrawActivity.this).inflate(R.layout.one_row, null);
+		    TableRow row = (TableRow)LayoutInflater.from(SWithdrawActivity.this).inflate(R.layout.expense_row, null);
 		    ((TextView)row.findViewById(R.id.attrib_lp)).setText(lista[i][0]);
-		    ((TextView)row.findViewById(R.id.attrib_name)).setText(lista[i][1]);
-		    ((TextView)row.findViewById(R.id.attrib_item)).setText(lista[i][2]);
+//		    ((TextView)row.findViewById(R.id.attrib_name)).setText(lista[i][1]);
+		    ((TextView)row.findViewById(R.id.attrib_date)).setText(lista[i][2]);
 		    ((TextView)row.findViewById(R.id.attrib_value)).setText(lista[i][3]);
-		    suma+=Double.valueOf(lista[i][3]);
+		    ((TextView)row.findViewById(R.id.attrib_description)).setText(lista[i][4]);
+		    suma+=Integer.valueOf(lista[i][3]);
 		    row.setClickable(true);
 		    row.setFocusable(true);
 		 // row.setFocusableInTouchMode(true);
-		 //   row.setOnClickListener(rowOnClickListener);
+		    row.setOnClickListener(editExp);
 
 		    table.addView(row);
 		}
 		eSuma.setText("Total: " + suma);
 		table.requestLayout();
-	//	info.setText("Table reloaded!");
+        }
     }
 	
     private class WypelnijTabele extends AsyncTask<String, Integer, String>{
      	 //wypelnia listę kilkoma kolumnami z calej tabeli
    @Override
    protected String doInBackground(String... arg0) {
-    // TODO Auto-generated method stub
        ObslugaJSON jParser = new ObslugaJSON();
-  
        try {
            JSONObject json = jParser.getJSONFromUrl(urlExp + "&name=" + NAME);
        	Log.i("tabela: ", TAG_TABELA);
            zbrojenia = json.getJSONArray(TAG_TABELA);    
            dlugosc=zbrojenia.length();
-           lista = new String[dlugosc][4];
+           lista = new String[dlugosc][5];
            // looping through All Contacts
 			for(int i = 0; i < zbrojenia.length(); i++){
 				JSONObject z = zbrojenia.getJSONObject(i);
@@ -94,6 +96,7 @@ public class SWithdrawActivity extends Activity {
 			    lista[i][1] = z.getString(TAG_NAME);
 			    lista[i][2] = z.getString(TAG_DATE);
 			    lista[i][3] = z.getString(TAG_VALUE);
+			    lista[i][4] = z.getString(TAG_DESCRIPTION);
 
 			 //   publishProgress(i);
 			}
@@ -131,14 +134,35 @@ public class SWithdrawActivity extends Activity {
     	Intent intent = new Intent(SWithdrawActivity.this, NewExpenseActivity.class);
     	intent.putExtra("LP", lp);
     	intent.putExtra("NAME", NAME);
+    	finish();
     	startActivity(intent);
     }
 
+	private OnClickListener editExp = new OnClickListener() {
+        public void onClick(View v) {
+        	
+        	lp = ((TextView) v.findViewById(R.id.attrib_lp)).getText().toString();
+        	String date = ((TextView) v.findViewById(R.id.attrib_date)).getText().toString();
+        	String value = ((TextView) v.findViewById(R.id.attrib_value)).getText().toString();
+        	String description = ((TextView) v.findViewById(R.id.attrib_description)).getText().toString();
+        	
+        	Intent intent = new Intent(SWithdrawActivity.this, NewExpenseActivity.class);
+        	intent.putExtra("LP", lp);
+        	intent.putExtra("NAME", NAME);
+        	intent.putExtra("DATE", date);
+        	intent.putExtra("VALUE", value);
+        	intent.putExtra("DESCRIPTION", description);
+        	
+        	finish();
+        	startActivity(intent);
+        }
+    };
+    
     public void onBackPressed() //wracasz do poprzedniego activity
     {
     	Intent intent = new Intent(this, ExpenseActivity.class);
-    	startActivity(intent);
     	finish();
+    	startActivity(intent);
     }
 
 	@Override

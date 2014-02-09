@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 public class NewExpenseActivity extends Activity {
 
-	TextView eDate, eExpense;
+	TextView eDate, eExpense, eDescription;
 	Date todayDate = new Date();
 	String lp, name;
 	
@@ -30,12 +30,32 @@ public class NewExpenseActivity extends Activity {
 
 		Bundle z = getIntent().getExtras();
 		
-	    lp = z.getString("LP");
-	    name = z.getString("NAME");
+
+	    if (z.getString("LP") == null) lp = "";
+	    else lp = z.getString("LP");
+	    
+	    if (z.getString("NAME") == null) name = "";
+	    else name = z.getString("NAME");
+	    
+	    String date;
+	    if (z.getString("DATE") == null) date = "";
+	    else date = z.getString("DATE");
+
+	    String value;
+	    if (z.getString("VALUE") == null) value = "";
+	    else value = z.getString("VALUE");
+	    
+	    String description;
+	    if (z.getString("DESCRIPTION") == null) description = "";
+	    else description = z.getString("DESCRIPTION");
+
 		
 		eDate = (TextView)findViewById(R.id.editText1);
 		eExpense = (TextView)findViewById(R.id.editText2);
-		eExpense.setText("0");
+		eDescription = (TextView)findViewById(R.id.editText3);
+		eDate.setText("" + date);
+		eExpense.setText("" + value);
+		eDescription.setText("" + description);
 	    eDate.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {		
 					rolkaDaty(v);
@@ -61,18 +81,23 @@ public void rolkaDaty(View view){
 
 public void save(View view){
 	AlertDialog.Builder alert = new AlertDialog.Builder(this);
-	alert.setTitle("Add payment");
-	alert.setMessage("Do you want to save your new payment?");
+	alert.setTitle("Add expense");
+	alert.setMessage("Do you want to save your expense?");
 	alert.setPositiveButton("Save", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
 		    String data = eDate.getText().toString();
+	    	if (data.matches("")) data = ""+ ((1900+todayDate.getYear()) + "-"
+	                + (todayDate.getMonth()+1) + "-" + todayDate.getDate());
+	    	
 		    String value = eExpense.getText().toString();
-		    lp="7"; //wywalić jak już zacznie definiować lp
-		    new DodajKoszt().execute(name, data, value);	
+	    	if (value.matches("")) value="0";
+	    	
+		    String description = eDescription.getText().toString();
+		    new DodajKoszt().execute(lp, name, data, value, description);	
 	
 			Intent intent = new Intent(NewExpenseActivity.this, ExpenseActivity.class);
+	    	finish();
 	    	startActivity(intent);
-	    	return;
 		  }
 		});
 	alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -87,10 +112,11 @@ public void save(View view){
 	    	 
 			  @Override
 			  protected String doInBackground(String... arg0) {
-				 KlasaUser.nowyKoszt(arg0[0], arg0[1], arg0[2]);
+				 KlasaUser.nowyKoszt(arg0[0], arg0[1], arg0[2], arg0[3], arg0[4]);
 				 Log.i("arg0[0]: ", arg0[0]);
-				 Log.i("arg1[1]: ", arg0[1]);
-				 Log.i("arg2[2]: ", arg0[2]);
+				 Log.i("arg0[1]: ", arg0[1]);
+				 Log.i("arg0[2]: ", arg0[2]);
+				 Log.i("arg0[3]: ", arg0[3]);
 			   return null;
 			  } 
 			   

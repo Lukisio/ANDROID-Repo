@@ -49,7 +49,7 @@ public class EditActivity extends Activity {
 	    det.downpay = z.getString("DOWNPAY");
 	    det.monthpay = z.getString("MONTHPAY");
 	    det.numberPayed = z.getString("PAYED");
-	    det.toPay = Double.valueOf(z.getString("TOPAY"));
+	    det.toPay = Integer.valueOf(z.getString("TOPAY"));
 	    
 		info = (TextView)findViewById(R.id.textView1);
 		eDate = (TextView)findViewById(R.id.textView2);
@@ -142,8 +142,8 @@ public class EditActivity extends Activity {
 		    intent.putExtra("PAYED", det.numberPayed);
 		    intent.putExtra("REMAIN", det.remain);
 		    intent.putExtra("TOPAY", String.valueOf(det.toPay));
+	    	finish();
 	    	startActivity(intent);
-	    	return;
 		  }
 		});
 
@@ -169,8 +169,8 @@ public class EditActivity extends Activity {
 	    intent.putExtra("PAYED", det.numberPayed);
 	    intent.putExtra("REMAIN", det.remain);
 	    intent.putExtra("TOPAY", String.valueOf(det.toPay));
-    	startActivity(intent);
     	finish();
+    	startActivity(intent);
 	}
 		
 		   private class EdytujDetal extends AsyncTask<KlasaUser, Integer, String>{
@@ -220,8 +220,8 @@ public class EditActivity extends Activity {
     public void onBackPressed() //wracasz do poprzedniego activity
     {
     	Intent intent = new Intent(EditActivity.this, ListActivity.class);
-    	startActivity(intent);
     	finish();
+    	startActivity(intent);
     }
     
 	@Override

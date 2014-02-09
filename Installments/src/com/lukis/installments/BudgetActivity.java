@@ -109,7 +109,7 @@ public class BudgetActivity extends Activity {
 		}
 		budget.wypelnijBudget(yearNumber+todayDate.getYear(), monthNumber+todayDate.getMonth());
 		eDate.setText("Month: " + (monthNumber+todayDate.getMonth()) + "." + (yearNumber+todayDate.getYear()));
-		budget.date= ((yearNumber+todayDate.getYear()) + "-" + strMonth);
+		budget.date= ((yearNumber+todayDate.getYear()) + "-" + strMonth + "-");
 		Log.i("date inne", "" + budget.date);
 		eWire1.setText("" + budget.wire1);
 		eWire2.setText("" + budget.wire2);
@@ -140,14 +140,15 @@ public class BudgetActivity extends Activity {
 	    intent.putExtra("REPAIRS", ""+budget.repairs);
 	    intent.putExtra("INSURANCE", ""+budget.insurance);
 	    intent.putExtra("CAR", ""+budget.car);
+    	finish();
 	    startActivity(intent);
 	}
 	
     public void onBackPressed() //wracasz do poprzedniego activity
     {
     	Intent intent = new Intent(BudgetActivity.this, MainActivity.class);
-    	startActivity(intent);
     	finish();
+    	startActivity(intent);
     }
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

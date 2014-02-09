@@ -2,32 +2,26 @@ package com.lukis.installments;
 
 
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -48,13 +42,14 @@ public class DetailsActivity extends Activity {
 	private static final String TAG_NAME = "name";
 	private static final String TAG_ADDRES = "address";
 	private static final String TAG_ITEM = "item";
+	private static final String TAG_NOTE = "note";
 	private static final String TAG_BUYPRICE = "buyprice";
 	private static final String TAG_SELLPRICE = "sellprice";
 	private static final String TAG_DOWNPAY = "downpay";
 	private static final String TAG_MONTHPAY = "monthpay";
 	private static final String TAG_PAYED = "numberPayed";
 	
-	public double profit, toPay, nextPayment;
+	public int profit, toPay, nextPayment;
 	String nextDate;
 	ProgressBar kreciolek;
 	Button historyButton;
@@ -79,9 +74,10 @@ public class DetailsActivity extends Activity {
 		    	Intent intent = new Intent(DetailsActivity.this, HistoryActivity.class);
 			    intent.putExtra("LP", det.lp);
 			    intent.putExtra("PAYED", det.numberPayed);
+			    intent.putExtra("PAYED_TOTAL", det.payedTotal);
 			    Log.i("LP: ", det.lp);
+			    finish();
 		    	startActivity(intent);
-		    	finish();
 			}
 		}); //Koniec "porownaj"
 	}
@@ -108,7 +104,8 @@ public class DetailsActivity extends Activity {
 	    det.downpay = z.getString("DOWNPAY");
 	    det.monthpay = z.getString("MONTHPAY");
 	    det.numberPayed = z.getString("PAYED");
-	    det.toPay = Double.valueOf(z.getString("TOPAY"));
+		det.payedTotal = z.getString("PAYED_TOTAL");
+	    det.toPay = Integer.valueOf(z.getString("TOPAY"));
 	    
 
 	    z.clear();
@@ -144,17 +141,17 @@ public class DetailsActivity extends Activity {
 		info.setText("Wybrany numer: "+det.lp);
 		eDate.setText("Date: "+det.date);
 		eName.setText("Name: "+det.name);
-		eAddress.setText("Address: "+det.address);
+		eAddress.setText("Phone: "+det.address);
 		eItem.setText("Item: "+det.item);
 		eBuyPrice.setText("Buy: "+det.buyPrice);
 		eSellPrice.setText("Sell: "+det.sellPrice);
 		if(det.buyPrice.trim().length() <= 0) det.buyPrice="0";
 		if(det.sellPrice.trim().length() <= 0) det.sellPrice="0";
-		double profit = Double.valueOf(det.sellPrice) - Double.valueOf(det.buyPrice);
+		profit = Integer.valueOf(det.sellPrice) - Integer.valueOf(det.buyPrice);
 		eProfit.setText("Profit: "+profit); //nie z klasy
-		eDownpay.setText("Downpayed: "+det.downpay);
+		eDownpay.setText("Downpaid: "+det.downpay);
 		eMonthpay.setText("Monthpayment: "+det.monthpay);
-		ePayed.setText("Payed number: "+det.numberPayed);
+		ePayed.setText("Paid number: "+det.numberPayed);
 		eToPay.setText("To pay: "+det.toPay);
 		eNextPayment.setText("Next Payment: "+det.monthpay); //nie z klasy
 		eNextDate.setText(" ");
@@ -174,8 +171,8 @@ public class DetailsActivity extends Activity {
 	    intent.putExtra("PAYED", det.numberPayed);
 	    intent.putExtra("REMAIN", det.remain);
 	    intent.putExtra("TOPAY", String.valueOf(det.toPay));
+	    finish();
     	startActivity(intent);
-    	finish();
 	}
 	
 
@@ -190,8 +187,8 @@ public class DetailsActivity extends Activity {
 		 //	det.item = input.getText().toString();
 			new UsunDetal().execute(det.lp);
 	    	Intent intent = new Intent(DetailsActivity.this, ListActivity.class);
+	    	finish();
 	    	startActivity(intent);
-			return;
 		  }
 		});
 
@@ -256,9 +253,14 @@ public class DetailsActivity extends Activity {
 		InputStream isZ = null;
 		String pelnyAdres=ListActivity.urlZapis;
 
-		pelnyAdres+="?lp=" + detal.lp + "&date=" + detal.date + "&name=" + detal.name + "&address=" + detal.address + 
-				"&item=" + detal.item + "&buyprice=" + detal.buyPrice + "&sellprice=" + detal.sellPrice + "&downpay=" + detal.downpay
-				+ "&monthpay=" + detal.monthpay + "&payed=" + detal.numberPayed;
+		try {
+			pelnyAdres+="?lp=" + detal.lp + "&date=" + detal.date + "&name=" + URLEncoder.encode(detal.name, "UTF-8") + "&address=" + detal.address + 
+					"&item=" + URLEncoder.encode(detal.item, "UTF-8") + "&buyprice=" + detal.buyPrice + "&sellprice=" + detal.sellPrice + "&downpay=" + detal.downpay
+					+ "&monthpay=" + detal.monthpay + "&numberpayed=" + detal.numberPayed;
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		Log.i("Pelny adres: ", pelnyAdres);
         try {
@@ -314,9 +316,11 @@ public class DetailsActivity extends Activity {
 	    
     public void onBackPressed() //wracasz do poprzedniego activity
     {
-    	Intent intent = new Intent(this, ListActivity.class);
-    	startActivity(intent);
+//    	String name = ((TextView) v.findViewById(R.id.attrib_name)).getText().toString();
+    	Intent intent = new Intent(DetailsActivity.this, ListActivity.class);
+	    intent.putExtra("NAME", det.name);
     	finish();
+    	startActivity(intent);
     }
 
 	@Override

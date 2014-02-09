@@ -92,8 +92,8 @@ public class EditBudgetActivity extends Activity {
 			    		eInsurance.getText().toString(), eCar.getText().toString() );	
 		
 				Intent intent = new Intent(EditBudgetActivity.this, BudgetActivity.class);
+		    	finish();
 		    	startActivity(intent);
-		    	return;
 			  }
 			});
 		alert.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -131,8 +131,8 @@ public class EditBudgetActivity extends Activity {
    public void onBackPressed() //wracasz do poprzedniego activity
    {
    	Intent intent = new Intent(EditBudgetActivity.this, BudgetActivity.class);
+	finish();
    	startActivity(intent);
-   	finish();
    }
 
 	@Override

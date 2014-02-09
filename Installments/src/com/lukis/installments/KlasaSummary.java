@@ -1,6 +1,5 @@
 package com.lukis.installments;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,7 +8,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 public class KlasaSummary extends Activity {
-	
+
 	private static final String TAG_TABELA = "installments";
 	private static final String TAG_DEPOSIT = "value";
 	private static final String TAG_DATELIST = "datelist";
@@ -24,442 +23,584 @@ public class KlasaSummary extends Activity {
 	private static final String TAG_DOWNPAY = "downpay";
 	private static final String TAG_MONTHPAY = "monthpay";
 	private static final String TAG_PAYED = "numberpayed";
-	
+	private static final String TAG_PAYEDTOTAL = "payedtotal";
+
 	JSONArray zbrojenia = null;
-	int dlugosc=0;
-	
-	double cash=0.0;
-	public double deposits=0.0;
-	double downPayments=0.0;
-	double totalInstallments=0.0;
-	double allBoughts=0.0;
-	double expenses=0.0;
-	double sWithdrawals=0.0;
-	double mWithdrawals=0.0;
-	double aWithdrawals=0.0;
-	double currentProfit=0.0;
-	double netProfit=0.0;
-	double sProfit=0.0;
-	double mProfit=0.0;
-	double aProfit=0.0;
-	double payments=0.0;
-	double sellPrice=0.0;
-	double buyPrice=0.0;
-	double remaining=0.0;
-	double downPayment=0.0;
-	String lista[]=new String[8];
+	int dlugosc = 0;
+
+	double cash = 0.0;
+	public double deposits = 0.0;
+	double downPayments = 0.0;
+	double totalInstallments = 0.0;
+	double allBoughts = 0.0;
+	double allSold = 0.0;
+	double monthlyPay = 0.0;
+	double coCabital = 0.0;
+	double expenses = 0.0;
+	double sWithdrawals = 0.0;
+	double mWithdrawals = 0.0;
+	double aWithdrawals = 0.0;
+	double currentProfit = 0.0;
+	double totalProfit = 0.0;
+	double netProfit = 0.0;
+	double sProfit = 0.0;
+	double mProfit = 0.0;
+	double aProfit = 0.0;
+	double payments = 0.0;
+	double sellPrice = 0.0;
+	double buyPrice = 0.0;
+	double remaining = 0.0;
+	double downPayment = 0.0;
+	double paidTotal = 0.0;
+	String lista[] = new String[8];
 	public Boolean czekaj = false;
-    public KlasaSummary(){
-        super();
-    }
-    
-    public double obliczDeposits(int year, int month){
-    	String strMonth;
-    	if (month<10){
-    		strMonth="0"+month;
-    	} else {
-    		strMonth=""+month;
-    	}
-		new WypelnijSummaryExpenses().execute(""+year, ""+strMonth);
-		while(czekaj){}
+
+	public KlasaSummary() {
+		super();
+	}
+
+	public double obliczDeposits(int year, int month) {
+		String strMonth;
+		if (month < 10) {
+			strMonth = "0" + month;
+		} else {
+			strMonth = "" + month;
+		}
+		new WypelnijSummaryExpenses().execute("" + year, "" + strMonth);
+		while (czekaj) {
+		}
 		return deposits;
-    }
-    
-    public double obliczDownPayments(int year, int month){
-    	String strMonth;
-    	if (month<10){
-    		strMonth="0"+month;
-    	} else {
-    		strMonth=""+month;
-    	}
-		new WypelnijSummaryDownPayments().execute(""+year, ""+strMonth);
-		while(czekaj){}
+	}
+
+	public double obliczDownPayments(int year, int month) {
+		String strMonth;
+		if (month < 10) {
+			strMonth = "0" + month;
+		} else {
+			strMonth = "" + month;
+		}
+		new WypelnijSummaryDownPayments().execute("" + year, "" + strMonth);
+		while (czekaj) {
+		}
 		return downPayments;
-    }
-    
-    public double obliczPaymentsDone(int year, int month){
-    	String strMonth;
-    	if (month<10){
-    		strMonth="0"+month;
-    	} else {
-    		strMonth=""+month;
-    	}
-		new WypelnijSummaryPaymentsDone().execute(""+year, ""+strMonth);
-		while(czekaj){}
+	}
+
+	public double obliczPaymentsDone(int year, int month) {
+		String strMonth;
+		if (month < 10) {
+			strMonth = "0" + month;
+		} else {
+			strMonth = "" + month;
+		}
+		new WypelnijSummaryPaymentsDone().execute("" + year, "" + strMonth);
+		while (czekaj) {
+		}
 		return payments;
-    }
-    
-    public double obliczTotalInstallments(int year, int month){
-    	String strMonth;
-    	if (month<10){
-    		strMonth="0"+month;
-    	} else {
-    		strMonth=""+month;
-    	}
-		new WypelnijSummaryTotalInstallments().execute(""+year, ""+strMonth);
-		while(czekaj){}
-		Log.i("total installments: ", ""+totalInstallments);
+	}
+
+	public double obliczTotalInstallments(int year, int month) {
+		String strMonth;
+		if (month < 10) {
+			strMonth = "0" + month;
+		} else {
+			strMonth = "" + month;
+		}
+		new WypelnijSummaryTotalInstallments()
+				.execute("" + year, "" + strMonth);
+		while (czekaj) {
+		}
+		Log.i("total installments: ", "" + totalInstallments);
 		return totalInstallments;
-    }
-    
-    public double obliczCurrentProfit(int year, int month){
-    	String strMonth;
-    	if (month<10){
-    		strMonth="0"+month;
-    	} else {
-    		strMonth=""+month;
-    	}
-		new WypelnijSummaryCurrentProfit().execute(""+year, ""+strMonth);
-		while(czekaj){}
-		Log.i("current profit: ", ""+currentProfit);
+	}
+
+	public double obliczCurrentProfit(int year, int month) {
+		String strMonth;
+		if (month < 10) {
+			strMonth = "0" + month;
+		} else {
+			strMonth = "" + month;
+		}
+		new WypelnijSummaryCurrentProfit().execute("" + year, "" + strMonth);
+		while (czekaj) {
+		}
+		Log.i("current profit: ", "" + currentProfit);
 		return currentProfit;
-    }
-    
-    
-    private class WypelnijSummaryExpenses extends AsyncTask<String, Integer, String>{
-    	 //wypelnia listę kilkoma kolumnami z calej tabeli
-  @Override
-  protected String doInBackground(String... arg0) {
-   // TODO Auto-generated method stub
-      ObslugaJSON jParser = new ObslugaJSON();
- 
-      try {
-          JSONObject json = jParser.getJSONFromUrl(ADepositActivity.urlExp);
-      	Log.i("tabela: ", TAG_TABELA);
-          zbrojenia = json.getJSONArray(TAG_TABELA);    
-          dlugosc=0;
-          deposits=0;
-          aWithdrawals=0.0;
-		  mWithdrawals=0.0;
-		  sWithdrawals=0.0;
-		  expenses=0.0;
-		  
-          // looping through All Contacts
-			for(int i = 0; i < zbrojenia.length(); i++){
-				JSONObject z = zbrojenia.getJSONObject(i);
-				dlugosc++;
-			//	Log.i("tag name: ", z.getString(TAG_NAME));
-				if (z.getString(TAG_NAME).equals("Deposit_A")){ //wypełnia Deposits dla Name == Deposit_A
-					if(z.getString(TAG_DEPOSIT).length() > 0) lista[0] = z.getString(TAG_DEPOSIT); else lista[0]="0";
-			//		Log.i("tag deposit: ", z.getString(TAG_DEPOSIT));
-				Log.i("data: ", z.getString(TAG_DATE));
+	}
 
-				Log.i("data2: ", "" + arg0[0] + "-" + arg0[1]);
-				
-					if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
-					{
-				    deposits += Double.valueOf(lista[0]);
-					}
-				}
-				
-				if (z.getString(TAG_NAME).equals("Withdraw_A")){ 
-					if(z.getString(TAG_DEPOSIT).length() > 0) lista[0] = z.getString(TAG_DEPOSIT); else lista[0]="0";
-			//		Log.i("tag withdrawal: ", z.getString(TAG_DEPOSIT));
-					if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
-					{
-					aWithdrawals += Double.valueOf(lista[0]);
-					}
-				}
-				
-				if (z.getString(TAG_NAME).equals("Withdraw_M")){ 
-					if(z.getString(TAG_DEPOSIT).length() > 0) lista[0] = z.getString(TAG_DEPOSIT); else lista[0]="0";
-			//		Log.i("tag withdrawal: ", z.getString(TAG_DEPOSIT));
-					if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
-					{
-					mWithdrawals += Double.valueOf(lista[0]);
-					}
-				}
+	private class WypelnijSummaryExpenses extends
+			AsyncTask<String, Integer, String> {
+		// wypelnia listę kilkoma kolumnami z calej tabeli
+		@Override
+		protected String doInBackground(String... arg0) {
+			// TODO Auto-generated method stub
+			ObslugaJSON jParser = new ObslugaJSON();
 
-				if (z.getString(TAG_NAME).equals("Withdraw_S")){
-					if(z.getString(TAG_DEPOSIT).length() > 0) lista[0] = z.getString(TAG_DEPOSIT); else lista[0]="0";
-			//		Log.i("tag withdrawal: ", z.getString(TAG_DEPOSIT));
-					if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
-					{
-					sWithdrawals += Double.valueOf(lista[0]);
-					}
-				}
-				
-				if (z.getString(TAG_NAME).equals("Gen_Expense")){
-					if(z.getString(TAG_DEPOSIT).length() > 0) lista[0] = z.getString(TAG_DEPOSIT); else lista[0]="0";
-			//		Log.i("tag withdrawal: ", z.getString(TAG_DEPOSIT));
-					if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
-					{
-					expenses += Double.valueOf(lista[0]);
-					}
-				}
+			try {
+				JSONObject json = jParser
+						.getJSONFromUrl(ADepositActivity.urlExp);
+				Log.i("tabela: ", TAG_TABELA);
+				zbrojenia = json.getJSONArray(TAG_TABELA);
+				dlugosc = 0;
+				deposits = 0;
+				aWithdrawals = 0.0;
+				mWithdrawals = 0.0;
+				sWithdrawals = 0.0;
+				expenses = 0.0;
+				String searchDate;
+				if (arg0[0].contains("99")) {
+					searchDate = ("");
+				} else
+					searchDate = ("" + arg0[0] + "-");
+				if (arg0[1].contains("99")) {
+				} else
+					searchDate += ("" + arg0[1] + "-");
+				Log.i("data podana: ", "" + searchDate);
 
-			 //   publishProgress(i);
+				// looping through All Contacts
+				for (int i = 0; i < zbrojenia.length(); i++) {
+					JSONObject z = zbrojenia.getJSONObject(i);
+					dlugosc++;
+					// Log.i("tag name: ", z.getString(TAG_NAME));
+					Log.i("data: ", z.getString(TAG_DATE));
+					if (z.getString(TAG_NAME).equals("Deposit_A")) { // wypełnia
+																		// Deposits
+																		// dla
+																		// Name
+																		// ==
+																		// Deposit_A
+						if (z.getString(TAG_DEPOSIT).length() > 0)
+							lista[0] = z.getString(TAG_DEPOSIT);
+						else
+							lista[0] = "0";
+
+						if (z.getString(TAG_DATE).contains("" + searchDate)) {
+							deposits += Double.valueOf(lista[0]);
+						}
+					}
+
+					if (z.getString(TAG_NAME).equals("Withdraw_A")) {
+						if (z.getString(TAG_DEPOSIT).length() > 0)
+							lista[0] = z.getString(TAG_DEPOSIT);
+						else
+							lista[0] = "0";
+						// Log.i("tag withdrawal: ", z.getString(TAG_DEPOSIT));
+						if (z.getString(TAG_DATE).contains("" + searchDate)) {
+							aWithdrawals += Double.valueOf(lista[0]);
+						}
+					}
+
+					if (z.getString(TAG_NAME).equals("Withdraw_M")) {
+						if (z.getString(TAG_DEPOSIT).length() > 0)
+							lista[0] = z.getString(TAG_DEPOSIT);
+						else
+							lista[0] = "0";
+						// Log.i("tag withdrawal: ", z.getString(TAG_DEPOSIT));
+						if (z.getString(TAG_DATE).contains("" + searchDate)) {
+							mWithdrawals += Double.valueOf(lista[0]);
+						}
+					}
+
+					if (z.getString(TAG_NAME).equals("Withdraw_S")) {
+						if (z.getString(TAG_DEPOSIT).length() > 0)
+							lista[0] = z.getString(TAG_DEPOSIT);
+						else
+							lista[0] = "0";
+						// Log.i("tag withdrawal: ", z.getString(TAG_DEPOSIT));
+						if (z.getString(TAG_DATE).contains("" + searchDate)) {
+							sWithdrawals += Double.valueOf(lista[0]);
+						}
+					}
+
+					if (z.getString(TAG_NAME).equals("Gen_Expense")) {
+						if (z.getString(TAG_DEPOSIT).length() > 0)
+							lista[0] = z.getString(TAG_DEPOSIT);
+						else
+							lista[0] = "0";
+						// Log.i("tag withdrawal: ", z.getString(TAG_DEPOSIT));
+						if (z.getString(TAG_DATE).contains("" + searchDate)) {
+							expenses += Double.valueOf(lista[0]);
+						}
+					}
+
+					// publishProgress(i);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
-      } catch (JSONException e) {
-          e.printStackTrace();
-      }
- 	  czekaj=false;
+			czekaj = false;
 
-   return null;
-  }
-  
-  @Override
-  protected void onPostExecute(String result) {
- //  setProgressBar(STOP_PROGRESS);
- //  button.setEnabled(true);
-	//  info.setText("name: "+detal.name);
-  }
-  
-  @Override
-  protected void onPreExecute() {
-	  czekaj=true;
-  }
-  
-  @Override
-  protected void onProgressUpdate(Integer... progress) {
- //  info.setText(""+progress[0]);
-  }
-}
-  
-  
-  private class WypelnijSummaryDownPayments extends AsyncTask<String, Integer, String>{
- 	 //wypelnia listę kilkoma kolumnami z calej tabeli
-@Override
-protected String doInBackground(String... arg0) {
-   ObslugaJSON jParser = new ObslugaJSON();
+			return null;
+		}
 
-   try {
-       JSONObject json = jParser.getJSONFromUrl(ListActivity.url);
-       zbrojenia = json.getJSONArray(TAG_TABELA);
-       downPayments=0;
-       allBoughts=0;
-       // looping through All Contacts
-			for(int i = 0; i < zbrojenia.length(); i++){
-				JSONObject z = zbrojenia.getJSONObject(i);
+		@Override
+		protected void onPostExecute(String result) {
+			// setProgressBar(STOP_PROGRESS);
+			// button.setEnabled(true);
+			// info.setText("name: "+detal.name);
+		}
 
-				if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
-				{
-					if(z.getString(TAG_DOWNPAY).length() > 0) lista[1] = z.getString(TAG_DOWNPAY); else lista[1]="0";
-				    downPayments += Double.valueOf(lista[1]);
-	
-					if(z.getString(TAG_BUYPRICE).length() > 0) lista[1] = z.getString(TAG_BUYPRICE); else lista[1]="0";
-				    allBoughts += Double.valueOf(lista[1]);
-				}
-			}
-   } catch (JSONException e) {
-       e.printStackTrace();
-   }
-	  czekaj=false;
+		@Override
+		protected void onPreExecute() {
+			czekaj = true;
+		}
 
-return null;
-}
-  
-  @Override
-  protected void onPostExecute(String result) {
- //  setProgressBar(STOP_PROGRESS);
- //  button.setEnabled(true);
-	//  info.setText("name: "+detal.name);
-  }
-  
-  @Override
-  protected void onPreExecute() {
-	  czekaj=true;
-  }
-  
-  @Override
-  protected void onProgressUpdate(Integer... progress) {
- //  info.setText(""+progress[0]);
-  }
-}
+		@Override
+		protected void onProgressUpdate(Integer... progress) {
+			// info.setText(""+progress[0]);
+		}
+	}
 
-  
-  private class WypelnijSummaryPaymentsDone extends AsyncTask<String, Integer, String>{
-	@Override
-	protected String doInBackground(String... arg0) {
-	   ObslugaJSON jParser = new ObslugaJSON();
+	private class WypelnijSummaryDownPayments extends
+			AsyncTask<String, Integer, String> {
+		// wypelnia listę kilkoma kolumnami z calej tabeli
+		@Override
+		protected String doInBackground(String... arg0) {
+			ObslugaJSON jParser = new ObslugaJSON();
 
-	   try {
-	       JSONObject json = jParser.getJSONFromUrl(ListActivity.url);
-	   	Log.i("tabela: ", TAG_TABELA);
-	       zbrojenia = json.getJSONArray(TAG_TABELA);
-	       int payed=0;
-	       payments=0.0;
-	       // looping through All Contacts
-				for(int i = 0; i < zbrojenia.length(); i++){
+			try {
+				JSONObject json = jParser.getJSONFromUrl(ListActivity.url);
+				zbrojenia = json.getJSONArray(TAG_TABELA);
+				downPayments = 0;
+				allBoughts = 0;
+				String searchDate;
+				if (arg0[0].contains("99")) {
+					searchDate = ("");
+				} else
+					searchDate = ("" + arg0[0] + "-");
+				if (arg0[1].contains("99")) {
+				} else
+					searchDate += ("" + arg0[1] + "-");
+				Log.i("data podana: ", "" + searchDate);
+				// looping through All Contacts
+				for (int i = 0; i < zbrojenia.length(); i++) {
 					JSONObject z = zbrojenia.getJSONObject(i);
 
-					if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
-					{
-						if(z.getString(TAG_PAYED).length() > 0) {
+					if (z.getString(TAG_DATE).contains("" + searchDate)) {
+						if (z.getString(TAG_DOWNPAY).length() > 0)
+							lista[1] = z.getString(TAG_DOWNPAY);
+						else
+							lista[1] = "0";
+						downPayments += Double.valueOf(lista[1]);
+
+						if (z.getString(TAG_BUYPRICE).length() > 0)
+							lista[1] = z.getString(TAG_BUYPRICE);
+						else
+							lista[1] = "0";
+						allBoughts += Double.valueOf(lista[1]);
+
+						if (z.getString(TAG_SELLPRICE).length() > 0)
+							lista[1] = z.getString(TAG_SELLPRICE);
+						else
+							lista[1] = "0";
+						allSold += Double.valueOf(lista[1]);
+
+						if (z.getString(TAG_MONTHPAY).length() > 0)
+							lista[1] = z.getString(TAG_MONTHPAY);
+						else
+							lista[1] = "0";
+						monthlyPay += Double.valueOf(lista[1]);
+
+					}
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			czekaj = false;
+
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			// setProgressBar(STOP_PROGRESS);
+			// button.setEnabled(true);
+			// info.setText("name: "+detal.name);
+		}
+
+		@Override
+		protected void onPreExecute() {
+			czekaj = true;
+		}
+
+		@Override
+		protected void onProgressUpdate(Integer... progress) {
+			// info.setText(""+progress[0]);
+		}
+	}
+
+	private class WypelnijSummaryPaymentsDone extends
+			AsyncTask<String, Integer, String> {
+		@Override
+		protected String doInBackground(String... arg0) {
+			ObslugaJSON jParser = new ObslugaJSON();
+
+			try {
+				JSONObject json = jParser.getJSONFromUrl(ListActivity.url);
+				Log.i("tabela: ", TAG_TABELA);
+				zbrojenia = json.getJSONArray(TAG_TABELA);
+				int payed = 0;
+				payments = 0.0;
+				String searchDate;
+				if (arg0[0].contains("99")) {
+					searchDate = ("");
+				} else
+					searchDate = ("" + arg0[0] + "-");
+				if (arg0[1].contains("99")) {
+				} else
+					searchDate += ("" + arg0[1] + "-");
+				Log.i("data podana: ", "" + searchDate);
+				// looping through All Contacts
+				for (int i = 0; i < zbrojenia.length(); i++) {
+					JSONObject z = zbrojenia.getJSONObject(i);
+
+					if (z.getString(TAG_DATE).contains("" + searchDate)) {
+						if (z.getString(TAG_PAYED).length() > 0) {
 							lista[1] = z.getString(TAG_PAYED);
-							payed= Integer.valueOf(lista[1]);
-							Log.i("payed: ", ""+payed);
+							payed = Integer.valueOf(lista[1]);
+							Log.i("payed: ", "" + payed);
 							payed++;
-							for(int j = 1; j< payed ; j++){ //UWAGA! Liczymy od pozycji paylist1!
-	
-								Log.i("length: ", ""+TAG_PAYLIST+j);
-								if(z.getString(TAG_PAYLIST+j).length() > 0){
-									lista[2] = z.getString(TAG_PAYLIST+j);
-									Log.i("lista[2]: ", ""+Double.valueOf(lista[2]));
-									payments+= Double.valueOf(lista[2]);
-								};
-	
-							   
-							}	
+							for (int j = 1; j < payed; j++) { // UWAGA! Liczymy
+																// od pozycji
+																// paylist1!
+
+//								Log.i("length: ", "" + TAG_PAYLIST + j);
+//								if (z.getString(TAG_PAYLIST + j).length() > 0) {
+//									lista[2] = z.getString(TAG_PAYLIST + j);
+//									Log.i("lista[2]: ",
+//											"" + Double.valueOf(lista[2]));
+//									payments += Double.valueOf(lista[2]);
+//								}
+//								;
+
+							}
 						}
 					}
 
 				}
-	   } catch (JSONException e) {
-	       e.printStackTrace();
-	   }
-		  czekaj=false;
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			czekaj = false;
 
-	return null;
-	}
-	
-	@Override
-	protected void onPreExecute() {
-		czekaj=true;
-	}
-	  
+			return null;
+		}
+
+		@Override
+		protected void onPreExecute() {
+			czekaj = true;
+		}
+
 	}
 
-  
-  
-  private class WypelnijSummaryTotalInstallments extends AsyncTask<String, Integer, String>{
-	@Override
-	protected String doInBackground(String... arg0) {
-	   ObslugaJSON jParser = new ObslugaJSON();
+	private class WypelnijSummaryTotalInstallments extends
+			AsyncTask<String, Integer, String> {
+		@Override
+		protected String doInBackground(String... arg0) {
+			ObslugaJSON jParser = new ObslugaJSON();
 
-	   try {
-	       JSONObject json = jParser.getJSONFromUrl(ListActivity.url);
-	   	Log.i("tabela: ", TAG_TABELA);
-	       zbrojenia = json.getJSONArray(TAG_TABELA);
-	       int payed=0;
-	       
-	       //TODO TOTAL INSTALLMENTS
-	       // looping through All Contacts
-				for(int i = 0; i < zbrojenia.length(); i++){
-					sellPrice=0.0;
-					downPayment=0.0;
-					payments=0.0;
+			try {
+				JSONObject json = jParser.getJSONFromUrl(ListActivity.url);
+				Log.i("tabela: ", TAG_TABELA);
+				zbrojenia = json.getJSONArray(TAG_TABELA);
+				int payed = 0;
+
+				// TODO TOTAL INSTALLMENTS
+				// looping through All Contacts
+				for (int i = 0; i < zbrojenia.length(); i++) {
+					sellPrice = 0.0;
+					downPayment = 0.0;
+					payments = 0.0;
+					paidTotal = 0.0;
+					String searchDate;
+					if (arg0[0].contains("99")) {
+						searchDate = ("");
+					} else
+						searchDate = ("" + arg0[0] + "-");
+					if (arg0[1].contains("99")) {
+					} else
+						searchDate += ("" + arg0[1] + "-");
+					Log.i("data podana: ", "" + searchDate);
 					JSONObject z = zbrojenia.getJSONObject(i);
 
-					if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
-					{
-						if(z.getString(TAG_SELLPRICE).length() > 0) {
+					if (z.getString(TAG_DATE).contains("" + searchDate)) {
+						if (z.getString(TAG_SELLPRICE).length() > 0) {
 							lista[1] = z.getString(TAG_SELLPRICE);
 							sellPrice = Double.valueOf(lista[1]);
 						}
-						
-						if(z.getString(TAG_DOWNPAY).length() > 0) {
+
+						if (z.getString(TAG_DOWNPAY).length() > 0) {
 							lista[1] = z.getString(TAG_DOWNPAY);
 							downPayment = Double.valueOf(lista[1]);
 						}
-					    
-						
-						if(z.getString(TAG_PAYED).length() > 0) {
-							lista[1] = z.getString(TAG_PAYED);
-							payed= Integer.valueOf(lista[1]);
-							payed++;
-							for(int j = 1; j< payed ; j++){ //UWAGA! Liczymy od pozycji paylist1!
-						//		Log.i("length: ", ""+TAG_PAYLIST+j);
-								if(z.getString(TAG_PAYLIST+j).length() > 0){
-									lista[2] = z.getString(TAG_PAYLIST+j);
-						//			Log.i("lista[2]: ", ""+Double.valueOf(lista[2]));
-									payments+= Double.valueOf(lista[2]);
-								};
-							}
+
+						if (z.getString(TAG_PAYEDTOTAL).length() > 0) {
+							lista[1] = z.getString(TAG_PAYEDTOTAL);
+							paidTotal = Double.valueOf(lista[1]);
 						}
-						
-						totalInstallments+= (sellPrice-downPayment-payments);
+
+						if (z.getString(TAG_PAYED).length() > 0) {
+							lista[1] = z.getString(TAG_PAYED);
+							payed = Integer.valueOf(lista[1]);
+							payed++;
+//							for (int j = 1; j < payed; j++) { // UWAGA! Liczymy
+																// od pozycji
+																// paylist1!
+								// Log.i("length: ", ""+TAG_PAYLIST+j);
+//								if (z.getString(TAG_PAYLIST + j).length() > 0) {
+//									lista[2] = z.getString(TAG_PAYLIST + j);
+//									// Log.i("lista[2]: ",
+//									// ""+Double.valueOf(lista[2]));
+//									payments += Double.valueOf(lista[2]);
+//								}
+//								;
+//							}
+						}
+
+						totalInstallments += paidTotal;
 					}
 				}
-	   } catch (JSONException e) {
-	       e.printStackTrace();
-	   }
-		  czekaj=false;
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			czekaj = false;
 
-	return null;
-	}
-	
-	@Override
-	protected void onPreExecute() {
-		czekaj=true;
-	}
-	  
-	}  
-  private class WypelnijSummaryCurrentProfit extends AsyncTask<String, Integer, String>{
-	@Override
-	protected String doInBackground(String... arg0) {
-	   ObslugaJSON jParser = new ObslugaJSON();
+			return null;
+		}
 
-	   try {
-	       JSONObject json = jParser.getJSONFromUrl(ListActivity.url);
-	   	Log.i("tabela: ", TAG_TABELA);
-	       zbrojenia = json.getJSONArray(TAG_TABELA);
-	       int payed=0;
-	       currentProfit=0.0;
-	       //TODO TOTAL INSTALLMENTS
-	       // looping through All Contacts
-				for(int i = 0; i < zbrojenia.length(); i++){
-					sellPrice=0.0;
-					buyPrice=0.0;
-					downPayment=0.0;
-					remaining=0.0;
-					payments=0.0;
+		@Override
+		protected void onPreExecute() {
+			czekaj = true;
+		}
+
+	}
+
+	private class WypelnijSummaryCurrentProfit extends
+			AsyncTask<String, Integer, String> {
+		@Override
+		protected String doInBackground(String... arg0) {
+			ObslugaJSON jParser = new ObslugaJSON();
+
+			try {
+				JSONObject json = jParser.getJSONFromUrl(ListActivity.url);
+				Log.i("tabela: ", TAG_TABELA);
+				zbrojenia = json.getJSONArray(TAG_TABELA);
+				int payed = 0;
+				currentProfit = 0.0;
+				remaining = 0.0;
+				// TODO TOTAL INSTALLMENTS
+				// looping through All Contacts
+				for (int i = 0; i < zbrojenia.length(); i++) {
+					sellPrice = 0.0;
+					buyPrice = 0.0;
+					downPayment = 0.0;
+					payments = 0.0;
+					String searchDate;
+					if (arg0[0].contains("99")) {
+						searchDate = ("");
+					} else
+						searchDate = ("" + arg0[0] + "-");
+					if (arg0[1].contains("99")) {
+					} else
+						searchDate += ("" + arg0[1] + "-");
+					Log.i("data podana: ", "" + searchDate);
 					JSONObject z = zbrojenia.getJSONObject(i);
 
-					if (z.getString(TAG_DATE).contains("" + arg0[0] + "-" + arg0[1]))
-					{
-						if(z.getString(TAG_SELLPRICE).length() > 0) {
+					
+					if (z.getString(TAG_SELLPRICE).length() > 0) {
+						lista[1] = z.getString(TAG_SELLPRICE);
+						sellPrice = Double.valueOf(lista[1]);
+					}
+
+					if (z.getString(TAG_BUYPRICE).length() > 0) {
+						lista[1] = z.getString(TAG_BUYPRICE);
+						buyPrice = Double.valueOf(lista[1]);
+					}
+
+					if (z.getString(TAG_DOWNPAY).length() > 0) {
+						lista[1] = z.getString(TAG_DOWNPAY);
+						downPayment = Double.valueOf(lista[1]);
+					}
+
+					if (z.getString(TAG_PAYED).length() > 0) {
+						lista[1] = z.getString(TAG_PAYED);
+						payed = Integer.valueOf(lista[1]);
+						payed++;
+						
+					if (z.getString(TAG_PAYEDTOTAL).length() > 0) {
+						lista[1] = z.getString(TAG_PAYEDTOTAL);
+						paidTotal = Double.valueOf(lista[1]);
+					}
+					
+						Log.i("sellPrice: ", "" + sellPrice);
+						Log.i("downPayment: ", "" + downPayment);
+						Log.i("paidTotal: ", "" + paidTotal);
+						Log.i("data podana: ", "" + searchDate);
+					remaining += sellPrice - downPayment - paidTotal;
+					currentProfit += ((downPayment + paidTotal)
+							* (sellPrice - buyPrice) / sellPrice);
+					totalProfit += sellPrice - buyPrice;
+					
+					Log.i("remaining: ", "" + remaining);
+
+					
+					if (z.getString(TAG_DATE).contains("" + searchDate)) {
+						if (z.getString(TAG_SELLPRICE).length() > 0) {
 							lista[1] = z.getString(TAG_SELLPRICE);
 							sellPrice = Double.valueOf(lista[1]);
 						}
-						
-						if(z.getString(TAG_BUYPRICE).length() > 0) {
+
+						if (z.getString(TAG_BUYPRICE).length() > 0) {
 							lista[1] = z.getString(TAG_BUYPRICE);
 							buyPrice = Double.valueOf(lista[1]);
 						}
-						
-						if(z.getString(TAG_DOWNPAY).length() > 0) {
+
+						if (z.getString(TAG_DOWNPAY).length() > 0) {
 							lista[1] = z.getString(TAG_DOWNPAY);
 							downPayment = Double.valueOf(lista[1]);
 						}
-						
-						if(z.getString(TAG_PAYED).length() > 0) {
+
+						if (z.getString(TAG_PAYED).length() > 0) {
 							lista[1] = z.getString(TAG_PAYED);
-							payed= Integer.valueOf(lista[1]);
+							payed = Integer.valueOf(lista[1]);
 							payed++;
-							for(int j = 1; j< payed ; j++){ //UWAGA! Liczymy od pozycji paylist1!
-						//		Log.i("length: ", ""+TAG_PAYLIST+j);
-								if(z.getString(TAG_PAYLIST+j).length() > 0){
-									lista[2] = z.getString(TAG_PAYLIST+j);
-							//		Log.i("lista[2]: ", ""+Double.valueOf(lista[2]));
-									payments+= Double.valueOf(lista[2]);
-								};
+//							for (int j = 1; j < payed; j++) { // UWAGA! Liczymy
+																// od pozycji
+																// paylist1!
+								// Log.i("length: ", ""+TAG_PAYLIST+j);
+//								if (z.getString(TAG_PAYLIST + j).length() > 0) {
+//									lista[2] = z.getString(TAG_PAYLIST + j);
+//									// Log.i("lista[2]: ",
+//									// ""+Double.valueOf(lista[2]));
+//									payments += Double.valueOf(lista[2]);
+//								}
+//								;
 							}
 						}
-						remaining=sellPrice-downPayment-payments;
-						Log.i("sellPrice: ", ""+sellPrice);
-						Log.i("remaining: ", ""+remaining);
-						Log.i("downPayment: ", ""+downPayment);
-						Log.i("buyPrice: ", ""+buyPrice);
-						
-						currentProfit+= ((sellPrice-remaining)*(sellPrice-buyPrice)/sellPrice);
+//						remaining += sellPrice - downPayment - paidTotal;
+						Log.i("sellPrice: ", "" + sellPrice);
+						Log.i("remaining: ", "" + remaining);
+						Log.i("downPayment: ", "" + downPayment);
+						Log.i("buyPrice: ", "" + buyPrice);
+
+//						currentProfit += ((sellPrice - remaining)
+//								* (sellPrice - buyPrice) / sellPrice);
 					}
 				}
-	   } catch (JSONException e) {
-	       e.printStackTrace();
-	   }
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 
-	   currentProfit = (Double) Math.ceil(currentProfit*100)/100;
-		  czekaj=false;
+			currentProfit = (Double) Math.ceil(currentProfit * 100) / 100;
+			czekaj = false;
 
-	return null;
+			return null;
+		}
+
+		@Override
+		protected void onPreExecute() {
+			czekaj = true;
+		}
+
 	}
-	
-	@Override
-	protected void onPreExecute() {
-		czekaj=true;
-	}
-	  
-	}
- 
+
 }

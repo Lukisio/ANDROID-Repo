@@ -187,7 +187,7 @@
                 android:layout_alignBaseline="@+id/textView4"
                 android:layout_alignBottom="@+id/textView4"
                 android:layout_alignParentRight="true"
-                android:text="Address"
+                android:text="Phone"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView

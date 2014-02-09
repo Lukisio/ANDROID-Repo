@@ -3,6 +3,8 @@ package com.lukis.installments;
 
 
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,6 +51,7 @@ public class ListActivity extends Activity {
 	private static final String TAG_DOWNPAY = "downpay";
 	private static final String TAG_MONTHPAY = "monthpay";
 	private static final String TAG_PAYED = "numberpayed";
+	private static final String TAG_PAYEDTOTAL = "payedtotal";
 	JSONArray zbrojenia = null;
 	public Boolean czekaj = false;
 	
@@ -57,8 +60,8 @@ public class ListActivity extends Activity {
 	TextView info;
     int lp, dlugosc;
     public String[][] lista;
-	public String date, name, address, item;
-	public double buyPrice, sellPrice, downpay, monthpay, payed;	
+	public String date, address, item, name;
+	public int buyPrice, sellPrice, downpay, monthpay, payed;	
 	public KlasaUser detal= new KlasaUser();
 	
 	ProgressBar kreciolek;
@@ -134,8 +137,28 @@ public class ListActivity extends Activity {
     
     
     protected void onResume(){
-    	 super.onResume();
-		new WypelnijTabele().execute("");
+    	super.onResume();
+    	 
+    	Bundle z = getIntent().getExtras();
+    	if (z == null){
+    		new WypelnijTabele().execute("");
+    	} else {
+    		if (z.getString("NAME") != null){
+	    		name = z.getString("NAME");
+	    		Log.i("z.name", name);
+	    		new WypelnijTabele().execute(name);
+    		} else if (z.getString("LP") != null){
+	    		String lp = z.getString("LP");
+	    		Log.i("z.lp", lp);
+	    		new JedenDetal().execute(lp);
+	    		while(czekaj){}
+	    		finish();
+	        	goDetails();
+    		} else if (z.getString("ADDRESS") != null){
+	    		address = z.getString("ADDRESS");
+    		}
+    	}
+    	 
 		while(czekaj){}
 		
 		
@@ -158,7 +181,7 @@ public class ListActivity extends Activity {
 		    table.addView(row);
 		}
 		table.requestLayout();
-		info.setText("Table reloaded!");
+		info.setText("List of transactions");
     }
 
 
@@ -187,15 +210,20 @@ public class ListActivity extends Activity {
 	    intent.putExtra("MONTHPAY", detal.monthpay);
 	    intent.putExtra("PAYED", detal.numberPayed);
 	    intent.putExtra("REMAIN", detal.remain);
+	    intent.putExtra("PAYED_TOTAL", detal.payedTotal);
 	    intent.putExtra("TOPAY", String.valueOf(detal.toPay));
+	    finish();
     	startActivity(intent);
 	}
 
 	public void newEntry(View view) {
-		//TODO
+
     	Intent intent = new Intent(ListActivity.this, CreateActivity.class);
-    	startActivity(intent);
+    	intent.putExtra("NAME", name);
+	    intent.putExtra("ADDRES", address);
+//	    Log.i("addres intent", address);
     	finish();
+    	startActivity(intent);
 	}
 	
 	
@@ -203,15 +231,22 @@ public class ListActivity extends Activity {
      	 //wypelnia listę kilkoma kolumnami z calej tabeli
    @Override
    protected String doInBackground(String... arg0) {
-    // TODO Auto-generated method stub
        ObslugaJSON jParser = new ObslugaJSON();
-  
+       String name= arg0[0];
+       //TODO jeśli arg0 jest "name" to wyszukaj url 
+       // JSONObject json = jParser.getJSONFromUrl(url+ "?userlist=1&name=" + name);
        try {
-           JSONObject json = jParser.getJSONFromUrl(url);
+    	   JSONObject json;
+    	   if (name.equals("")){
+    		   json = jParser.getJSONFromUrl(url);
+    	   } else {
+    		   json = jParser.getJSONFromUrl(url+ "?userlist=1&name=" + URLEncoder.encode(name, "UTF-8") );
+    	   }
+           
        	Log.i("tabela: ", TAG_TABELA);
            zbrojenia = json.getJSONArray(TAG_TABELA);    
            dlugosc=zbrojenia.length();
-           lista = new String[dlugosc][4];
+           lista = new String[dlugosc][5];
            // looping through All Contacts
 			for(int i = 0; i < zbrojenia.length(); i++){
 				JSONObject z = zbrojenia.getJSONObject(i);
@@ -221,12 +256,18 @@ public class ListActivity extends Activity {
 			    lista[i][1] = z.getString(TAG_NAME);
 			    lista[i][2] = z.getString(TAG_ITEM);
 			    lista[i][3] = z.getString(TAG_SELLPRICE);
-
+			    lista[i][4] = z.getString(TAG_PAYEDTOTAL);
+			    address = z.getString(TAG_ADDRES);
+		    	Log.i("Address: ", address);
+		    	Log.i("tag.address: ", z.getString(TAG_ADDRES));
 			 //   publishProgress(i);
 			}
        } catch (JSONException e) {
            e.printStackTrace();
-       }
+       } catch (UnsupportedEncodingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
   	  czekaj=false;
 
     return null;
@@ -250,7 +291,7 @@ public class ListActivity extends Activity {
    protected void onProgressUpdate(Integer... progress) {
   //  info.setText(""+progress[0]);
    }
-     }
+   }
       
 	
 	public void wyszukajButton(View view) {
@@ -265,37 +306,26 @@ public class ListActivity extends Activity {
     	 
   @Override
   protected String doInBackground(String... arg0) {
-   // TODO Auto-generated method stub
-//    publishProgress(i);
    wyszukaj(arg0[0]);
    return null;
   } 
    
   @Override
   protected void onPostExecute(String result) {
- //  setProgressBar(STOP_PROGRESS);
- //  button.setEnabled(true);
 	  kreciolek.setVisibility(View.GONE);
 	  info.setText("name: "+detal.name);
-	//  czekaj=false;
-	//  goDetails();
   }
   
   @Override
   protected void onPreExecute() {
-   //"wyzerujemy" progress bar
- //  setProgressBar(START_PROGRESS);  
-   //zablokujmy przycisk na czas dzialania watku
- //  button.setEnabled(false);
 	  kreciolek.setVisibility(View.VISIBLE);
 	  czekaj=true;
   }
   
   @Override
   protected void onProgressUpdate(Integer... progress) {
- //  info.setText(""+progress[0]);
   }
-    }
+  }
      
 
 	public void wyszukaj(String szukanyNumer) { //wyszukuje konkretną linię z bazy i zapisuje do klasy "detal"
@@ -326,20 +356,19 @@ public class ListActivity extends Activity {
 			    detal.downpay = z.getString(TAG_DOWNPAY);
 			    detal.monthpay = z.getString(TAG_MONTHPAY);
 			    detal.numberPayed = z.getString(TAG_PAYED);
+			    detal.payedTotal = z.getString(TAG_PAYEDTOTAL);
 			    
 			    Log.i("numberPayed: ", detal.numberPayed);
 
 				detal.payments = new String[2][Integer.valueOf(detal.numberPayed)+1];	
-				detal.toPay=Double.valueOf(detal.sellPrice)-Double.valueOf(detal.downpay);
+				detal.toPay=Integer.valueOf(detal.sellPrice)-Integer.valueOf(detal.downpay)-Integer.valueOf(detal.payedTotal);
 				
 				for(int j = 1 ; j <= Integer.valueOf(detal.numberPayed); j++){
-					Log.i("paylist: ", z.getString(TAG_PAYLIST+j));
+//					Log.i("paylist: ", z.getString(TAG_PAYLIST+j));
 				    detal.payments[0][j]=z.getString(TAG_DATELIST+j);
-				    detal.payments[1][j]=z.getString(TAG_PAYLIST+j);
-				    detal.toPay-=Double.valueOf(detal.payments[1][j]);
+//				    detal.payments[1][j]=z.getString(TAG_PAYLIST+j);
+				    detal.payments[1][j]=detal.monthpay;
 				}
-				
-				
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -349,7 +378,8 @@ public class ListActivity extends Activity {
 
     public void onBackPressed() //wracasz do poprzedniego activity
     {
-    	Intent intent = new Intent(this, MainActivity.class);
+    	Intent intent = new Intent(this, UsersActivity.class);
+    	finish();
     	startActivity(intent);
     }
 	

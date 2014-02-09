@@ -62,6 +62,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:onClick="newEntry"
-        android:text="Add new entry" />
+        android:text="Add new transaction" />
 
 </RelativeLayout>

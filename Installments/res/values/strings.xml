@@ -20,5 +20,8 @@
     <string name="title_activity_gen_expenses">GenExpensesActivity</string>
     <string name="title_activity_budget">BudgetActivity</string>
     <string name="title_activity_edit_budget">EditBudgetActivity</string>
+    <string name="title_activity_users">UsersActivity</string>
+    <string name="title_activity_unpaid">UnpaidActivity</string>
+    <string name="title_activity_calculator">CalculatorActivity</string>
 
 </resources>

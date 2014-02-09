@@ -24,7 +24,7 @@ public class HistoryActivity extends Activity {
 
 	ProgressBar kreciolek;
 	TableLayout table;
-	TextView info;
+	TextView info, eTotalPaid, eNote;
 	JSONArray zbrojenia = null;
 	public Boolean czekaj = false;
 	int dlugosc;
@@ -36,12 +36,13 @@ public class HistoryActivity extends Activity {
     
 	private static final String TAG_TABELA = "installments";
 	private static final String TAG_DATELIST = "datelist";
-	private static final String TAG_PAYLIST = "paylist";
+//	private static final String TAG_PAYLIST = "paylist";
 	private static final String TAG_LP = "lp";
 	private static final String TAG_DATE = "date";
 	private static final String TAG_NAME = "name";
 	private static final String TAG_ADDRES = "address";
 	private static final String TAG_ITEM = "item";
+	private static final String TAG_NOTE = "note";
 	private static final String TAG_BUYPRICE = "buyprice";
 	private static final String TAG_SELLPRICE = "sellprice";
 	private static final String TAG_DOWNPAY = "downpay";
@@ -55,10 +56,13 @@ public class HistoryActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_history);
 		info = (TextView)findViewById(R.id.textView1);
+		eTotalPaid = (TextView)findViewById(R.id.textView2);
+		eNote = (TextView)findViewById(R.id.textView3);
 		kreciolek = (ProgressBar)findViewById(R.id.progressBar1);
 		Bundle z = getIntent().getExtras();
 		detal.lp = z.getString("LP");
 		detal.numberPayed = z.getString("PAYED");
+		detal.payedTotal = z.getString("PAYED_TOTAL");
 	    
 	}
 
@@ -100,12 +104,11 @@ public class HistoryActivity extends Activity {
 
 		table = (TableLayout)HistoryActivity.this.findViewById(R.id.tableLayout);
 		table.removeAllViews();
-		for(int i=0;i<=Integer.valueOf(detal.numberPayed);i++)	{		    	
+		for(int i=1;i<=Integer.valueOf(detal.numberPayed);i++)	{		    	
 		    // Inflate your row "template" and fill out the fields.
 		    TableRow row = (TableRow)LayoutInflater.from(HistoryActivity.this).inflate(R.layout.history_row, null);
-		    ((TextView)row.findViewById(R.id.attrib_date)).setText(detal.payments[0][i]);
-		    ((TextView)row.findViewById(R.id.attrib_amount)).setText(detal.payments[1][i]);
-		    Log.i("lista0 ", detal.payments[0][i] );
+		    ((TextView)row.findViewById(R.id.attrib_date)).setText("" + i + ". " + detal.payments[0][i]);
+//		    ((TextView)row.findViewById(R.id.attrib_amount)).setText(detal.monthpay);
 		    row.setClickable(true);
 		    row.setFocusable(true);
 		//    row.setOnClickListener(rowOnClickListener);
@@ -113,7 +116,9 @@ public class HistoryActivity extends Activity {
 		    table.addView(row);
 		}
 		table.requestLayout();
-		info.setText("Table reloaded!");
+		eTotalPaid.setText("Total Paid: " + detal.payedTotal);
+		eNote.setText("" + detal.note);
+		info.setText("History of payments!");
     }
 
     
@@ -177,11 +182,12 @@ public class HistoryActivity extends Activity {
 			    detal.downpay = z.getString(TAG_DOWNPAY);
 			    Log.i("downpay(wyszukaj): ", detal.downpay);
 			    detal.monthpay = z.getString(TAG_MONTHPAY);
+			    detal.note = z.getString(TAG_NOTE);
 			    detal.numberPayed = z.getString(TAG_PAYED);
 				for(int i = 0; i <= Integer.valueOf(detal.numberPayed); i++){
 					Log.i("datelist: ", z.getString(TAG_DATELIST+i));
 			    detal.payments[0][i]=z.getString(TAG_DATELIST+i);
-			    detal.payments[1][i]=z.getString(TAG_PAYLIST+i);		
+//			    detal.payments[1][i]=z.getString(TAG_PAYLIST+i);		
 				}
 		//		info.setText(""+detal.lp);
 
@@ -200,15 +206,17 @@ public class HistoryActivity extends Activity {
 	    intent.putExtra("MONTHPAY", detal.monthpay);
 	    intent.putExtra("PAYED", detal.numberPayed);
 	    intent.putExtra("REMAIN", detal.remain);
-    	startActivity(intent);
+	    intent.putExtra("PAYED_TOTAL", detal.payedTotal);
+	    intent.putExtra("NOTE", detal.note);
     	finish();
+    	startActivity(intent);
 	}
 	
     public void onBackPressed() //wracasz do poprzedniego activity
     {
     	Intent intent = new Intent(this, ListActivity.class);
-    	startActivity(intent);
     	finish();
+    	startActivity(intent);
     }
    
 	@Override

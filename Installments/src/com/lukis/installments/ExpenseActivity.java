@@ -16,26 +16,31 @@ public class ExpenseActivity extends Activity {
 	
 	public void goAWith (View view){
 	    Intent intent = new Intent(this, AWithdrawActivity.class);
+    	finish();
 	    startActivity(intent);
 	}
 	
 	public void goMWith (View view){
 	    Intent intent = new Intent(this, MWithdrawActivity.class);
+    	finish();
 	    startActivity(intent);
 	}
 	
 	public void goSWith (View view){
 	    Intent intent = new Intent(this, SWithdrawActivity.class);
+    	finish();
 	    startActivity(intent);
 	}
 	
 	public void goADep (View view){
 	    Intent intent = new Intent(this, ADepositActivity.class);
+    	finish();
 	    startActivity(intent);
 	}
 	
 	public void goGeneral (View view){
 	    Intent intent = new Intent(this, GenExpensesActivity.class);
+    	finish();
 	    startActivity(intent);
 	}
 
@@ -43,8 +48,8 @@ public class ExpenseActivity extends Activity {
     public void onBackPressed() //wracasz do poprzedniego activity
     {
     	Intent intent = new Intent(this, MainActivity.class);
-    	startActivity(intent);
     	finish();
+    	startActivity(intent);
     }
     
 	@Override

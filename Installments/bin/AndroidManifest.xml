@@ -108,6 +108,18 @@
             android:name="com.lukis.installments.EditBudgetActivity"
             android:label="@string/title_activity_edit_budget" >
         </activity>
+        <activity
+            android:name="com.lukis.installments.UsersActivity"
+            android:label="@string/title_activity_users" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.UnpaidActivity"
+            android:label="@string/title_activity_unpaid" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.CalculatorActivity"
+            android:label="@string/title_activity_calculator" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,8 +1,5 @@
 package com.lukis.installments;
-
-import java.util.Calendar;
 import java.util.Date;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -11,12 +8,10 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnKeyListener;
-import android.view.View.OnTouchListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -47,6 +42,18 @@ public class CreateActivity extends Activity {
 		eDownpay = (TextView)findViewById(R.id.textView9);
 		eMonthpay = (TextView)findViewById(R.id.textView10);
 
+		Bundle z = getIntent().getExtras();
+		if (z != null) {
+			if (z.getString("NAME") != null) {
+				eName.setText(z.getString("NAME"));
+			}
+			if (z.getString("ADDRES") != null) {
+				String address = z.getString("ADDRES");
+				eAddress.setText(z.getString("ADDRES"));
+				Log.i("addres intent", address);
+			}
+		}
+		
 	
     eDate.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {		
@@ -106,19 +113,20 @@ public class CreateActivity extends Activity {
 			
 
 	    	Intent intent = new Intent(CreateActivity.this, ListActivity.class);
-/*		    intent.putExtra("LP", det.lp);
-		    intent.putExtra("DATE", det.date);
+//		    intent.putExtra("LP", det.lp);
+//		    intent.putExtra("DATE", det.date);
 		    intent.putExtra("NAME", det.name);
-		    intent.putExtra("ADDRESS", det.address);
-		    intent.putExtra("ITEM", det.item);
-		    intent.putExtra("BUY_PRICE", det.buyPrice);
-		    intent.putExtra("SELL_PRICE", det.sellPrice);
-		    intent.putExtra("DOWNPAY", det.downpay);
-		    intent.putExtra("MONTHPAY", det.monthpay);
-		    intent.putExtra("PAYED", det.payed);
-		    intent.putExtra("REMAIN", det.remain);
-*/	    	startActivity(intent);
-	    	return;
+//		    intent.putExtra("ADDRESS", det.address);
+//		    intent.putExtra("ITEM", det.item);
+//		    intent.putExtra("BUY_PRICE", det.buyPrice);
+//		    intent.putExtra("SELL_PRICE", det.sellPrice);
+//		    intent.putExtra("DOWNPAY", det.downpay);
+//		    intent.putExtra("MONTHPAY", det.monthpay);
+//		    intent.putExtra("PAYED", det.payed);
+//		    intent.putExtra("REMAIN", det.remain);
+    		
+	    	finish();
+	    	startActivity(intent);
 		  }
 		});
 
@@ -174,14 +182,16 @@ public class CreateActivity extends Activity {
     }
     
 	public void cancel(View view){
-		finish();
+    	Intent intent = new Intent(CreateActivity.this, UsersActivity.class);
+    	finish();
+    	startActivity(intent);
 	}
 	
     public void onBackPressed() 
     {
-    	Intent intent = new Intent(CreateActivity.this, ListActivity.class);
-    	startActivity(intent);
+    	Intent intent = new Intent(CreateActivity.this, UsersActivity.class);
     	finish();
+    	startActivity(intent);
     }
 	
 	@Override
