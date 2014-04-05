@@ -16,80 +16,125 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="6dp"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceMedium" 
-        android:text="Choose what you want" />
-
-<!--     <Button
-        android:id="@+id/button1"
-        android:layout_width="140dp"
-        android:layout_height="90dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="16dp"
-        android:onClick="goList"
-        android:text="Transactions" /> -->
-
-    <Button
-        android:id="@+id/Button02"
-        android:layout_width="140dp"
-        android:layout_height="90dp"
-        android:layout_alignBaseline="@+id/button2"
-        android:layout_alignBottom="@+id/button2"
-        android:layout_alignParentRight="true"
-        android:onClick="goExp"
-        android:text="Expenses" /> 
+        android:text="United Company ‏المتحدة للتقسيط" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="140dp"
-        android:layout_height="90dp"
+        android:layout_height="80dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="16dp"
         android:onClick="goUsers"
-        android:text="Users" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="140dp"
-        android:layout_height="90dp"
-        android:layout_alignLeft="@+id/button3"
-        android:layout_below="@+id/button3"
-        android:layout_marginTop="16dp"
-        android:onClick="goSum"
-        android:text="Monthly" />
+        android:text="User&#10;كل الزبائن" />
 
     <Button
         android:id="@+id/Button03"
         android:layout_width="140dp"
-        android:layout_height="90dp"
+        android:layout_height="80dp"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/button3"
         android:onClick="goUnpaid"
-        android:text="Unpaid" />
+        android:text="Unpaid&#10;اقساط مستحقة" />
+
+    
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="140dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/button3"
+        android:layout_marginTop="16dp"
+        android:onClick="goCompleteNext"
+        android:text="Complete Next&#10;عقود باخر قسط" />
+    
+    
+    <Button
+        android:id="@+id/button04"
+        android:layout_width="140dp"
+        android:layout_height="80dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/button4"
+        android:onClick="goCompleted"
+        android:text="Completed&#10;عقود كاملة الاقساط" />
+    
+    
+     <Button
+        android:id="@+id/button1"
+        android:layout_width="140dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/button4"
+        android:layout_marginTop="16dp"
+        android:onClick="goList"
+        android:text="All Transactions&#10;كل العقود" /> 
+
+    <Button
+        android:id="@+id/Button02"
+        android:layout_width="140dp"
+        android:layout_height="80dp"
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_alignParentRight="true"
+        android:onClick="goExp"
+        android:text="Expenses&#10;ايداع و سحب" />
+    
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="140dp"
+        android:layout_height="80dp"
+        android:layout_alignLeft="@+id/button3"
+        android:layout_below="@+id/button1"
+        android:layout_marginTop="16dp"
+        android:onClick="goSum"
+        android:text="Monthly&#10;ميزانية الشركة" />
     
 <!--         android:layout_alignBaseline="@+id/button3"
         android:layout_alignBottom="@+id/button3" -->
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="left"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
+		android:singleLine="true"
 		android:clickable="true"
         android:onClick="email"
-        android:text=" "
+        android:text="sss "
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Button
         android:id="@+id/Button01"
         android:layout_width="140dp"
-        android:layout_height="90dp"
+        android:layout_height="80dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/Button02"
         android:layout_marginTop="16dp"
         android:onClick="goCalc"
-        android:text="Calculator" />
+        android:text="Calculator&#10;حاسبة" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/button2"
+        android:layout_marginTop="28dp"
+        android:text="كاش: "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignParentRight="true"
+        android:text="الاقساط الشهرية: "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

@@ -29,7 +29,7 @@
             android:name="com.lukis.installments.ListActivity"
             android:label="@string/title_activity_list"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait" >
+             >
         </activity>
         <activity
             android:name="com.lukis.installments.DetailsActivity"
@@ -102,23 +102,41 @@
         </activity>
         <activity
             android:name="com.lukis.installments.BudgetActivity"
-            android:label="@string/title_activity_budget" >
+            android:label="@string/title_activity_budget"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.lukis.installments.EditBudgetActivity"
-            android:label="@string/title_activity_edit_budget" >
+            android:label="@string/title_activity_edit_budget"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.lukis.installments.UsersActivity"
-            android:label="@string/title_activity_users" >
+            android:label="@string/title_activity_users"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.lukis.installments.UnpaidActivity"
-            android:label="@string/title_activity_unpaid" >
+            android:label="@string/title_activity_unpaid"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.lukis.installments.CalculatorActivity"
-            android:label="@string/title_activity_calculator" >
+            android:label="@string/title_activity_calculator"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.ErrorActivity"
+            android:label="@string/title_activity_error"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.CompletedActivity"
+            android:label="@string/title_activity_completed" >
+        </activity>
+        <activity
+            android:name="com.lukis.installments.CompleteNextActivity"
+            android:label="@string/title_activity_complete_next" >
         </activity>
     </application>
 

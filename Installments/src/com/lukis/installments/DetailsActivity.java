@@ -4,14 +4,24 @@ package com.lukis.installments;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -73,8 +83,10 @@ public class DetailsActivity extends Activity {
 			public void onClick(View v) {		 //HISTORY
 		    	Intent intent = new Intent(DetailsActivity.this, HistoryActivity.class);
 			    intent.putExtra("LP", det.lp);
+			    intent.putExtra("NAME", det.name);
 			    intent.putExtra("PAYED", det.numberPayed);
 			    intent.putExtra("PAYED_TOTAL", det.payedTotal);
+			    intent.putExtra("TOPAY", String.valueOf(det.toPay));
 			    Log.i("LP: ", det.lp);
 			    finish();
 		    	startActivity(intent);
@@ -138,9 +150,9 @@ public class DetailsActivity extends Activity {
     }
     
 	void refresh(){
-		info.setText("Wybrany numer: "+det.lp);
+		info.setText("Entry number: "+det.lp);
 		eDate.setText("Date: "+det.date);
-		eName.setText("Name: "+det.name);
+		eName.setText("Name: "+ det.name.split(" ")[0]);
 		eAddress.setText("Phone: "+det.address);
 		eItem.setText("Item: "+det.item);
 		eBuyPrice.setText("Buy: "+det.buyPrice);
@@ -150,7 +162,7 @@ public class DetailsActivity extends Activity {
 		profit = Integer.valueOf(det.sellPrice) - Integer.valueOf(det.buyPrice);
 		eProfit.setText("Profit: "+profit); //nie z klasy
 		eDownpay.setText("Downpaid: "+det.downpay);
-		eMonthpay.setText("Monthpayment: "+det.monthpay);
+		eMonthpay.setText("Monthpay: "+det.monthpay);
 		ePayed.setText("Paid number: "+det.numberPayed);
 		eToPay.setText("To pay: "+det.toPay);
 		eNextPayment.setText("Next Payment: "+det.monthpay); //nie z klasy
@@ -186,7 +198,7 @@ public class DetailsActivity extends Activity {
 		public void onClick(DialogInterface dialog, int whichButton) {
 		 //	det.item = input.getText().toString();
 			new UsunDetal().execute(det.lp);
-	    	Intent intent = new Intent(DetailsActivity.this, ListActivity.class);
+	    	Intent intent = new Intent(DetailsActivity.this, UsersActivity.class);
 	    	finish();
 	    	startActivity(intent);
 		  }
@@ -250,7 +262,7 @@ public class DetailsActivity extends Activity {
 	
 		
 	public static void zapisz(KlasaUser detal) {
-		InputStream isZ = null;
+		InputStream is = null;
 		String pelnyAdres=ListActivity.urlZapis;
 
 		try {
@@ -283,6 +295,42 @@ public class DetailsActivity extends Activity {
 			e.printStackTrace();
 		}
 
+//		List<NameValuePair> params = new ArrayList<NameValuePair>();
+//		params.add(new BasicNameValuePair("lp", "detal.lp"));
+//		params.add(new BasicNameValuePair("date", "detal.date"));
+//		params.add(new BasicNameValuePair("name", "detal.name"));
+//		params.add(new BasicNameValuePair("address", "detal.address"));
+//		params.add(new BasicNameValuePair("item", "detal.item"));
+//		params.add(new BasicNameValuePair("buyprice", "detal.buyprice"));
+//		params.add(new BasicNameValuePair("sellprice", "detal.sellprice"));
+//		params.add(new BasicNameValuePair("downpay", "detal.downpay"));
+//		params.add(new BasicNameValuePair("monthpay", "detal.monthpay"));
+//		params.add(new BasicNameValuePair("numberpayed", "detal.numberpayed"));
+//		
+//		DefaultHttpClient httpClient = new DefaultHttpClient();
+//        HttpPost httpPost = new HttpPost(ListActivity.urlZapis);
+//        try {
+//			httpPost.setEntity(new UrlEncodedFormEntity(params,"utf-8"));
+//
+//        HttpResponse httpResponse = httpClient.execute(httpPost);
+//        HttpEntity httpEntity = httpResponse.getEntity();
+//        
+//        String result = EntityUtils.toString(httpEntity);
+//
+//        Log.i("Result: ", ""+result);
+//        	
+//        
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ClientProtocolException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+        
 	}
 		
 		

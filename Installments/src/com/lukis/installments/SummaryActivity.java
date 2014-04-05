@@ -26,7 +26,9 @@ public class SummaryActivity extends Activity {
 	boolean sumAll = true;
 	boolean sumYear = false;
 
-	private ProgressBar kreciolek;
+	ProgressBar kreciolek;
+
+	KlasaSummary summary = new KlasaSummary();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,19 +66,16 @@ public class SummaryActivity extends Activity {
 		super.onResume();
 
 		View v = (View) findViewById(R.id.background);
-		// kreciolek.setVisibility(View.VISIBLE);
+		
+		
+
 		refresh();
-
-		// kreciolek.setVisibility(View.GONE);
-
-		// eDate.setText("Month: " + (monthNumber+todayDate.getMonth()) + "." +
-		// (yearNumber+todayDate.getYear()));
 
 		v.setOnTouchListener(new OnSwipeTouchListener() {
 			public void onSwipeRight() {
 				monthNumber--;
 				// eDate.setText("dzień dobry "+dateNumber);
-				Toast.makeText(SummaryActivity.this, "right",
+				Toast.makeText(SummaryActivity.this, "previous month",
 						Toast.LENGTH_SHORT).show();
 
 				// kreciolek.setVisibility(View.VISIBLE);
@@ -87,7 +86,7 @@ public class SummaryActivity extends Activity {
 			public void onSwipeLeft() {
 				monthNumber++;
 				// eDate.setText("dzień dobry "+dateNumber);
-				Toast.makeText(SummaryActivity.this, "left", Toast.LENGTH_SHORT)
+				Toast.makeText(SummaryActivity.this, "next month", Toast.LENGTH_SHORT)
 						.show();
 
 				// kreciolek.setVisibility(View.VISIBLE);
@@ -122,97 +121,152 @@ public class SummaryActivity extends Activity {
 	}
 
 	public void refresh() {
-		kreciolek.setVisibility(View.VISIBLE);
-		KlasaSummary summary = new KlasaSummary();
+
+
 		if (sumYear == true) {
 			eDate.setText("SumYear");
-			eDeposits.setText(""
-					+ summary.obliczDeposits(yearNumber + todayDate.getYear(),
-							99));
-			eDownpayments.setText(""
-					+ summary.obliczDownPayments(
-							yearNumber + todayDate.getYear(), 99));
-			eTotalInstallments.setText(""
-					+ summary.obliczTotalInstallments(
-							yearNumber + todayDate.getYear(), 99));
-			eCurrentProfit.setText(""
-					+ summary.obliczCurrentProfit(
-							yearNumber + todayDate.getYear(), 99));
-			// TODO current profit do poprawy
+			summary.obliczCash(this);
+			summary.obliczTotalProfit(this);
+			summary.obliczTotalsMonth(this, yearNumber + todayDate.getYear(), 0 );
+			summary.obliczCoCabitalMonth(this, yearNumber + todayDate.getYear(), 0 );
+			summary.obliczDeposits(yearNumber + todayDate.getYear(), 99, this);
+			// eDeposits.setText("" + summary.deposits);
+			// eDownpayments.setText(""
+			// + summary.obliczDownPayments(
+			// yearNumber + todayDate.getYear(), 99));
+			// eTotalInstallments.setText(""
+			// + summary.obliczTotalInstallments(
+			// yearNumber + todayDate.getYear(), 99));
+			// eCurrentProfit.setText(""
+			// + summary.obliczCurrentProfit(
+			// yearNumber + todayDate.getYear(), 99));
 		}
 		if (sumAll == true) {
 			eDate.setText("SumAll");
-			eDeposits.setText("" + summary.obliczDeposits(99, 99));
-			eDownpayments.setText("" + summary.obliczDownPayments(99, 99));
-			eTotalInstallments.setText(""
-					+ summary.obliczTotalInstallments(99, 99));
-			eCurrentProfit.setText("" + summary.obliczCurrentProfit(99, 99));
+			summary.obliczCash(this);
+			summary.obliczTotalProfit(this);
+			summary.obliczTotals(this);
+			summary.obliczCoCabital(this);
+			summary.obliczDeposits(99, 99, this);
+			// eDownpayments.setText("" + summary.obliczDownPayments(99, 99));
+			// eTotalInstallments.setText(""
+			// + summary.obliczTotalInstallments(99, 99));
+			// eCurrentProfit.setText("" + summary.obliczCurrentProfit(99, 99));
 		}
 		if (sumYear == false && sumAll == false) {
 			eDate.setText("Month: " + (monthNumber + todayDate.getMonth())
 					+ "." + (yearNumber + todayDate.getYear()));
-			eDeposits.setText(""
-					+ summary.obliczDeposits(yearNumber + todayDate.getYear(),
-							monthNumber + todayDate.getMonth()));
-			eDownpayments.setText(""
-					+ summary.obliczDownPayments(
-							yearNumber + todayDate.getYear(), monthNumber
-									+ todayDate.getMonth()));
-			eTotalInstallments.setText(""
-					+ summary.obliczTotalInstallments(
-							yearNumber + todayDate.getYear(), monthNumber
-									+ todayDate.getMonth()));
-			eCurrentProfit.setText(""
-					+ summary.obliczCurrentProfit(
-							yearNumber + todayDate.getYear(), monthNumber
-									+ todayDate.getMonth()));
+			
+			summary.obliczDeposits(yearNumber + todayDate.getYear(),
+					monthNumber + todayDate.getMonth(), this);
+			summary.obliczCoCabitalMonth(this, yearNumber + todayDate.getYear(),
+					monthNumber + todayDate.getMonth() );
+			summary.obliczTotalsMonth(this, yearNumber + todayDate.getYear(),
+					monthNumber + todayDate.getMonth() );
+			// eDownpayments.setText(""
+			// + summary.obliczDownPayments(
+			// yearNumber + todayDate.getYear(), monthNumber
+			// + todayDate.getMonth()));
+			// eTotalInstallments.setText(""
+			// + summary.obliczTotalInstallments(
+			// yearNumber + todayDate.getYear(), monthNumber
+			// + todayDate.getMonth()));
+			// eCurrentProfit.setText(""
+			// + summary.obliczCurrentProfit(
+			// yearNumber + todayDate.getYear(), monthNumber
+			// + todayDate.getMonth()));
+
 		}
 
-		eAllBoughts.setText("" + summary.allBoughts);
-		eAllSold.setText("" + summary.allSold);
-		eMonthlyPay.setText("" + summary.monthlyPay);
-		summary.coCabital = summary.deposits + summary.totalProfit
-				- summary.expenses - summary.aWithdrawals
-				- summary.mWithdrawals - summary.sWithdrawals;
-		eCoCabital.setText("" + summary.coCabital);
-		eExpenses.setText("" + summary.expenses);
+		// -- totals
+		// eCoCabital.setText("" + summary.obliczCoCabital());
+		// eCash.setText("" + summary.obliczCash());
+		// eCurrentProfit.setText("" + summary.currentProfit);
+
+		// eDownpayments.setText("" + summary.downPayments);
+		// eTotalInstallments.setText("" + summary.totalInstallments);
+
+		// eAllBoughts.setText("" + summary.allBoughts);
+		// eAllSold.setText("" + summary.allSold);
+		// eMonthlyPay.setText("" + summary.monthlyPay);
+		// summary.coCabital = summary.deposits + summary.totalProfit
+		// - summary.expenses - summary.aWithdrawals
+		// - summary.mWithdrawals - summary.sWithdrawals;
+//		eExpenses.setText("" + summary.expenses);
+//		eAWithdrawals.setText("" + summary.aWithdrawals);
+//		eMWithdrawals.setText("" + summary.mWithdrawals);
+//		eSWithdrawals.setText("" + summary.sWithdrawals);
+		// eRemaining.setText("" + summary.remaining);
+//		int netProfit = summary.currentProfit - summary.expenses;
+//		netProfit = (int) Math.ceil(netProfit * 100) / 100;
+//		eTotalProfit.setText("" + summary.totalProfit);
+//		eNetProfit.setText("" + netProfit);
+//		int netSProfit = (int) (Math.ceil(netProfit * 30) / 100);
+//		int netMProfit = (int) (Math.ceil(netProfit * 20) / 100);
+//		int netAProfit = (int) (Math.ceil(netProfit * 50) / 100);
+//		eSProfit.setText("" + netSProfit);
+//		eMProfit.setText("" + netMProfit);
+//		eAProfit.setText("" + netAProfit);
+//		int netSBalance = (int) (Math
+//				.ceil((netSProfit - summary.sWithdrawals) * 100) / 100);
+//		int netMBalance = (int) (Math
+//				.ceil((netMProfit - summary.mWithdrawals) * 100) / 100);
+//		int netABalance = (int) (Math
+//				.ceil((netAProfit - summary.aWithdrawals) * 100) / 100);
+//		eSBalance.setText("" + netSBalance);
+//		eMBalance.setText("" + netMBalance);
+//		eABalance.setText("" + netABalance);
+
+//		kreciolek.setVisibility(View.GONE);
+	}
+
+	public void printDeposits() {
+		eDeposits.setText("" + summary.deposits);
 		eAWithdrawals.setText("" + summary.aWithdrawals);
 		eMWithdrawals.setText("" + summary.mWithdrawals);
 		eSWithdrawals.setText("" + summary.sWithdrawals);
+		eExpenses.setText("" + summary.expenses);
+		printProfits();
+	}
+	
+	public void printCash(Integer cash) {
+		eCash.setText("" + cash);
+	}
+	
+	public void printTotals() {
+		eAllBoughts.setText("" + summary.allBoughts);
+		eAllSold.setText("" + summary.allSold);
+		eDownpayments.setText("" + summary.downPayments);
+		eMonthlyPay.setText("" + summary.monthlyPay);
+		eTotalInstallments.setText("" + summary.totalInstallments);
 		eRemaining.setText("" + summary.remaining);
-		double netProfit = summary.currentProfit - summary.expenses;
-		netProfit = (Double) Math.ceil(netProfit * 100) / 100;
+		eCurrentProfit.setText("" + summary.currentProfit);
+		printProfits();
+	}
+
+	public void printProfits() {
+		kreciolek.setVisibility(View.GONE);
+		int netProfit = summary.currentProfit + summary.expenses;
+		netProfit = (int) Math.ceil(netProfit * 100) / 100;
 		eTotalProfit.setText("" + summary.totalProfit);
 		eNetProfit.setText("" + netProfit);
-		double netSProfit = Math.ceil(netProfit * 30) / 100;
-		double netMProfit = Math.ceil(netProfit * 20) / 100;
-		double netAProfit = Math.ceil(netProfit * 50) / 100;
+		int netSProfit = (int) (Math.ceil(netProfit * 30) / 100);
+		int netMProfit = (int) (Math.ceil(netProfit * 20) / 100);
+		int netAProfit = (int) (Math.ceil(netProfit * 50) / 100);
 		eSProfit.setText("" + netSProfit);
 		eMProfit.setText("" + netMProfit);
 		eAProfit.setText("" + netAProfit);
-		double netSBalance = Math
-				.ceil((netSProfit - summary.sWithdrawals) * 100) / 100;
-		double netMBalance = Math
-				.ceil((netMProfit - summary.mWithdrawals) * 100) / 100;
-		double netABalance = Math
-				.ceil((netAProfit - summary.aWithdrawals) * 100) / 100;
+		int netSBalance = (int) (Math
+				.ceil((netSProfit + summary.sWithdrawals) * 100) / 100);
+		int netMBalance = (int) (Math
+				.ceil((netMProfit + summary.mWithdrawals) * 100) / 100);
+		int netABalance = (int) (Math
+				.ceil((netAProfit + summary.aWithdrawals) * 100) / 100);
 		eSBalance.setText("" + netSBalance);
 		eMBalance.setText("" + netMBalance);
 		eABalance.setText("" + netABalance);
-
-		double cash = Double.parseDouble(eDeposits.getText().toString())
-				+ Double.parseDouble(eDownpayments.getText().toString())
-				+ Double.parseDouble(eTotalInstallments.getText().toString())
-				- Double.parseDouble(eAllBoughts.getText().toString())
-				- Double.parseDouble(eExpenses.getText().toString())
-				- Double.parseDouble(eSWithdrawals.getText().toString())
-				- Double.parseDouble(eMWithdrawals.getText().toString())
-				- Double.parseDouble(eAWithdrawals.getText().toString());
-		eCash.setText("" + cash);
-
-		kreciolek.setVisibility(View.GONE);
 	}
-
+	
 	public void onBackPressed() // wracasz do poprzedniego activity
 	{
 		Intent intent = new Intent(this, MainActivity.class);

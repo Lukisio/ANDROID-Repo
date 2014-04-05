@@ -36,9 +36,9 @@ public class NewExpenseActivity extends Activity {
 	    
 	    if (z.getString("NAME") == null) name = "";
 	    else name = z.getString("NAME");
-	    
+
 	    String date;
-	    if (z.getString("DATE") == null) date = "";
+	    if (z.getString("DATE") == null) date = ""+(1900+todayDate.getYear()) + "-" + (1+todayDate.getMonth()) + "-" + todayDate.getDate();
 	    else date = z.getString("DATE");
 
 	    String value;
@@ -89,7 +89,12 @@ public void save(View view){
 	    	if (data.matches("")) data = ""+ ((1900+todayDate.getYear()) + "-"
 	                + (todayDate.getMonth()+1) + "-" + todayDate.getDate());
 	    	
-		    String value = eExpense.getText().toString();
+		    String value;
+		    if (name.matches("Deposit_A")) {
+		    	value = eExpense.getText().toString();		    	
+		    } else {
+		    	value = "-" + eExpense.getText().toString();
+		    }
 	    	if (value.matches("")) value="0";
 	    	
 		    String description = eDescription.getText().toString();
@@ -134,7 +139,16 @@ public void save(View view){
 
 	    
 	public void cancel(View view){
+		Intent intent = new Intent(this, ExpenseActivity.class);
+    	finish();
+    	startActivity(intent);
+	}
+	
+	public void onBackPressed() // wracasz do poprzedniego activity
+	{
+		Intent intent = new Intent(this, ExpenseActivity.class);
 		finish();
+		startActivity(intent);
 	}
 	   
 	@Override

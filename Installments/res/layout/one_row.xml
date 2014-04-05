@@ -10,6 +10,7 @@
     <TextView
         android:id="@+id/attrib_lp"
         android:textStyle="normal"
+        android:paddingLeft="8dp"
         android:textAppearance="?android:attr/textAppearanceSmall"/>
     <TextView
         android:id="@+id/attrib_item"
@@ -17,7 +18,12 @@
         android:textStyle="normal"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
     <TextView
-        android:id="@+id/attrib_value"
+        android:id="@+id/attrib_value1"
+        android:gravity="right"
+        android:textStyle="normal"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+    <TextView
+        android:id="@+id/attrib_value2"
         android:gravity="right"
         android:textStyle="normal"
         android:textAppearance="?android:attr/textAppearanceMedium"/>

@@ -112,21 +112,7 @@ public class CreateActivity extends Activity {
 			new UtworzDetal().execute(det);	
 			
 
-	    	Intent intent = new Intent(CreateActivity.this, ListActivity.class);
-//		    intent.putExtra("LP", det.lp);
-//		    intent.putExtra("DATE", det.date);
-		    intent.putExtra("NAME", det.name);
-//		    intent.putExtra("ADDRESS", det.address);
-//		    intent.putExtra("ITEM", det.item);
-//		    intent.putExtra("BUY_PRICE", det.buyPrice);
-//		    intent.putExtra("SELL_PRICE", det.sellPrice);
-//		    intent.putExtra("DOWNPAY", det.downpay);
-//		    intent.putExtra("MONTHPAY", det.monthpay);
-//		    intent.putExtra("PAYED", det.payed);
-//		    intent.putExtra("REMAIN", det.remain);
-    		
-	    	finish();
-	    	startActivity(intent);
+
 		  }
 		});
 
@@ -136,6 +122,13 @@ public class CreateActivity extends Activity {
 		  }
 		});
 		alert.show();
+	}
+	
+	public void gotoList(){
+    	Intent intent = new Intent(CreateActivity.this, ListActivity.class);
+	    intent.putExtra("NAME", det.name);
+    	finish();
+    	startActivity(intent);
 	}
 	
 	   private class UtworzDetal extends AsyncTask<KlasaUser, Integer, String>{
@@ -151,7 +144,7 @@ public class CreateActivity extends Activity {
 			@Override
 			  protected void onPostExecute(String result) {
 				  kreciolek.setVisibility(View.GONE);
-			//	refresh();
+				  gotoList();
 			  }
 			  
 			  @Override

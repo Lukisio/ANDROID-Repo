@@ -33,6 +33,7 @@ public class KlasaUser extends Activity {
 	    String numberPayed;
 	    String payedTotal;
 	    String remain;
+	    String currentProfit;
 	    int toPay;
 	    public String[][] payments;
 	    public KlasaUser(){
@@ -59,9 +60,12 @@ public class KlasaUser extends Activity {
 		public static void utworz(KlasaUser detal) {
 			String pelnyAdres=ListActivity.urlZapis;
 			try {
+				detal.currentProfit = "" + Integer.valueOf(detal.downpay)*(Integer.valueOf(detal.sellPrice)-Integer.valueOf(detal.buyPrice))/Integer.valueOf(detal.sellPrice);
+				
+				
 				pelnyAdres+="?date=" + detal.date + "&name=" + URLEncoder.encode(detal.name, "UTF-8") + "&address=" + detal.address + 
 						"&item=" + URLEncoder.encode(detal.item, "UTF-8") + "&buyprice=" + detal.buyPrice + "&sellprice=" + detal.sellPrice + "&downpay=" + detal.downpay
-						+ "&monthpay=" + detal.monthpay + "&numberpayed=" + detal.numberPayed;
+						+ "&monthpay=" + detal.monthpay + "&numberpayed=" + detal.numberPayed + "&currentprofit=" + detal.currentProfit;
 			} catch (UnsupportedEncodingException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -76,12 +80,16 @@ public class KlasaUser extends Activity {
 	            httpClient.execute(httpPost);
 	        } catch (UnsupportedEncodingException e) {
 	            e.printStackTrace();
+	            return;
 	        } catch (ClientProtocolException e) {
 	            e.printStackTrace();
+	            return;
 	        } catch (IOException e) {
 	        	e.printStackTrace();
+	            return;
 	        } catch (URISyntaxException e) {
 				e.printStackTrace();
+	            return;
 			}
 
 		}
@@ -89,13 +97,18 @@ public class KlasaUser extends Activity {
 		
 		
 		
-		public static void nowaWplata(String lp, String date, String payment, String nrRaty, String payedTotal, String note) {
+		public static void nowaWplata(String lp, String date, String payment, String nrRaty, String payedTotal, String note, String monthpay, String currentProfit) {
 			String pelnyAdres=ListActivity.urlRata;
 			int nowyNrRaty = Integer.valueOf(nrRaty);
 			nowyNrRaty++;
-			pelnyAdres+="?lp=" + lp + "&datelist" + nowyNrRaty + "=" + date + "&numberpayed=" + nowyNrRaty + "&payedtotal=" + payedTotal + "&note=" + note;
+//			pelnyAdres+="?lp=" + lp + "&datelist" + nowyNrRaty + "=" + date + "&numberpayed=" + nowyNrRaty + "&payedtotal=" + payedTotal + "&note=" + note + "&monthpay=" + monthpay;
 
-//			pelnyAdres+="?lp=" + lp + "&paylist" + nowyNrRaty + "=" + payment + "&datelist" + nowyNrRaty + "=" + date + "&numberpayed=" + nowyNrRaty + "&payedtotal=" + payedTotal;
+			try {
+				pelnyAdres+="?lp=" + lp + "&paylist" + nowyNrRaty + "=" + payment + "&datelist" + nowyNrRaty + "=" + date + "&numberpayed=" + nowyNrRaty + "&payedtotal=" + payedTotal + "&note=" + URLEncoder.encode(note, "UTF-8") + "&monthpay=" + monthpay + "&currentprofit=" + currentProfit;
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+				return;
+			}
 			Log.i("Pelny adres: ", pelnyAdres);
 	        try {
 	    		URI uriPelnyAdres = new URI(pelnyAdres.replace(" ", "%20"));
@@ -106,12 +119,16 @@ public class KlasaUser extends Activity {
 	            httpClient.execute(httpPost);
 	        } catch (UnsupportedEncodingException e) {
 	            e.printStackTrace();
+	            return;
 	        } catch (ClientProtocolException e) {
 	            e.printStackTrace();
+	            return;
 	        } catch (IOException e) {
 	        	e.printStackTrace();
+	            return;
 	        } catch (URISyntaxException e) {
 				e.printStackTrace();
+	            return;
 			}
 		}
 		
@@ -135,12 +152,16 @@ public class KlasaUser extends Activity {
 	            httpClient.execute(httpPost);
 	        } catch (UnsupportedEncodingException e) {
 	            e.printStackTrace();
+	            return;
 	        } catch (ClientProtocolException e) {
 	            e.printStackTrace();
+	            return;
 	        } catch (IOException e) {
 	        	e.printStackTrace();
+	            return;
 	        } catch (URISyntaxException e) {
 				e.printStackTrace();
+	            return;
 			}
 		}
 
