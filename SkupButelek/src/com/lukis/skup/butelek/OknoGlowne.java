@@ -35,6 +35,7 @@ public class OknoGlowne extends Activity {
 		ekranZwrot = (TextView)findViewById(R.id.textViewZwrot);
 		ekranZwrot.setTypeface(czcionka1);
 		kreciolek = (ProgressBar) findViewById(R.id.progressBar1);
+//		IntentIntegrator integrator = new IntentIntegrator(this);
 	}
 
 	public enum kody {
@@ -682,6 +683,11 @@ public class OknoGlowne extends Activity {
 		}
 */
 	
+	public void add(View view) {
+    	Intent myIntent = new Intent(OknoGlowne.this, AddBottle.class);
+    	OknoGlowne.this.startActivity(myIntent);
+	}
+	
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		   if (requestCode == 0) {
 		      if (resultCode == RESULT_OK) {
@@ -739,7 +745,7 @@ public class OknoGlowne extends Activity {
 		Button przyciskButelka;
 		przyciskButelka = (Button) findViewById(R.id.button1);
 		przyciskButelka.getBackground().setColorFilter(0xFF00FF00, PorterDuff.Mode.MULTIPLY);
-	//	skanowanie(View view);
+		skanowanie(view);
 	}
 	
 //	void wiadomosc(String kod, String producent, boolean zwrotna) {
@@ -758,8 +764,8 @@ public class OknoGlowne extends Activity {
 	}
 	
 	public void skanowanie(View view) {
-	//	IntentIntegrator integrator = new IntentIntegrator(this);
-	//	integrator.initiateScan();
+//		IntentIntegrator integrator = new IntentIntegrator(this);
+//		integrator.initiateScan();
 	//Dwie linijki do skanowania przez zewnętrzną apkę. Poniżej skanowanie przez library:
 		
 		Intent intent = new Intent("com.google.zxing.client.android.SCAN");

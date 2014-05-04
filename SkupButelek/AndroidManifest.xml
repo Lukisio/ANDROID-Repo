@@ -6,11 +6,11 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="13" />
-    
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.CAMERA"/>
-	
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -22,12 +22,31 @@
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.google.zxing.client.android.CaptureActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateAlwaysHidden" >
             <intent-filter>
-      			<action android:name="com.google.zxing.client.android.SCAN"/>
+                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
-    		</intent-filter>
+            </intent-filter>
+            <!--
+                    <intent-filter>
+                  <action android:name="com.google.zxing.client.android.SCAN"/>
+                  <category android:name="android.intent.category.DEFAULT"/>
+               </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name="com.lukis.skup.butelek.AddBottle"
+            android:label="@string/title_activity_add_bottle" >
         </activity>
     </application>
 

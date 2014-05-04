@@ -4,5 +4,8 @@
     <string name="app_name">Skup Butelek</string>
     <string name="menu_settings">Ustawienia</string>
     <string name="butelka">Kliknij na butelkę i rozpocznij skanowanie</string>
+    <string name="title_activity_add_bottle">AddBottle</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
